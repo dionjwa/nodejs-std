@@ -6,7 +6,7 @@
 
 ### Please note:
 
-Due to issue [1603]{https://code.google.com/p/haxe/issues/detail?id=1603) you will need to add 
+Due to issue [1603](https://code.google.com/p/haxe/issues/detail?id=1603) you will need to add 
 	
 	--remap sys:sys
 	
