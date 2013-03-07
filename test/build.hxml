@@ -1,0 +1,7 @@
+-debug
+--macro Macro.makeSys()
+-lib nodejs-std
+-cp ./
+-js test.js
+--remap sys:sys
+-main Test
