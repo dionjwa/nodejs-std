@@ -1,4 +1,4 @@
-package js.sys.io;
+package sys.io;
 
 import js.Node;
 

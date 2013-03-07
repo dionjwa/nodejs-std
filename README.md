@@ -4,6 +4,18 @@
 
 # Std [haxe lib][haxelib] for [node.js][nodejs]
 
+### Please note:
+
+Due to issue [1603]{https://code.google.com/p/haxe/issues/detail?id=1603) you will need to add 
+	
+	--remap sys:sys
+	
+to your hxml file or build command (until that issue gets resolved).
+	
+
+### Description
+
+
 Haxe 2.10 compatible.
 
 Partner to the [nodejs haxelib](http://lib.haxe.org/p/nodejs).

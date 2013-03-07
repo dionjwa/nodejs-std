@@ -1,4 +1,4 @@
-package js.sys;
+package sys;
 
 import js.Node;
 /**

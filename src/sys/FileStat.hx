@@ -1,4 +1,4 @@
-package js.sys;
+package sys;
 
 /**
 	File informations, as given by [sys.FileSystem.stat]
