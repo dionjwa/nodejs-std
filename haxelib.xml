@@ -1,7 +1,8 @@
 <project name="nodejs-std" url="https://github.com/dionjwa/nodejs-std" license="BSD">
         <user name="dionjwa"/>
-        <description>Some of the std library for node.js</description>
+        <description>std.io, Http, and sys library for node.js</description>
         <version name="1.0">First upload</version>
+        <depends name="nodejs" />
         <tag v="nodejs"/>
         <tag v="js"/>
 </project>
