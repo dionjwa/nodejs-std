@@ -10,8 +10,7 @@ Due to issue [1603](https://code.google.com/p/haxe/issues/detail?id=1603) you wi
 	
 	--remap sys:sys
 	
-to your hxml file or build command (until that issue gets resolved).
-	
+to your hxml file or build command *after the -js option* (until that issue gets resolved).
 
 ### Description
 

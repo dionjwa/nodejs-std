@@ -1,7 +1,7 @@
-<project name="nodejs-std" url="https://github.com/dionjwa/nodejs-std" license="BSD">
+<project name="nodejs_std" url="https://github.com/dionjwa/nodejs-std" license="BSD">
         <user name="dionjwa"/>
         <description>std.io, Http, and sys library for node.js</description>
-        <version name="1.1">Compiler workaround documented.</version>
+        <version name="1.2">Compiler workaround documented.</version>
         <depends name="nodejs" />
         <tag v="nodejs"/>
         <tag v="js"/>
