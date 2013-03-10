@@ -36,16 +36,27 @@ class Http {
 	public var url : String;
 	public var async : Bool;
 	var postData : String;
+	#if haxe3
 	var headers : Map<String, String>;
 	var params : Map<String, String>;
+	#else
+	var headers : Hash<String>;
+	var params : Hash<String>;
+	#end
+	
 
 	/**
 	 * @param	url
 	 */
 	public function new( url : String ) {
 		this.url = url;
+		#if haxe3
 		headers = new Map();
 		params = new Map();
+		#else
+		headers = new Hash();
+		params = new Hash();
+		#end
 		async = true; //Ignored, Node.js doing sync requests???
 	}
 
