@@ -1,8 +1,8 @@
 <project name="nodejs_std" url="https://github.com/dionjwa/nodejs-std" license="BSD">
         <user name="dionjwa"/>
         <description>std.io, Http, and sys library for node.js</description>
-        <version name="1.3">Some unit tests, Haxe 3/2.10 fixes.</version>
-        <depends name="nodejs" />
+        <version name="1.4">Removed nodejs dependency, nodejs haxelib code added to this lib.</version>
         <tag v="nodejs"/>
+        <tag v="node.js"/>
         <tag v="js"/>
 </project>

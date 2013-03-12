@@ -33,7 +33,7 @@ package haxe.io;
 #elseif cpp
 	extern class Unsigned_char__ { }
 	typedef BytesData = Array<Unsigned_char__>;
-#elseif nodejs
+#elseif (nodejs || nodejs_std)
   typedef BytesData = js.Node.NodeBuffer;
 #else
 	typedef BytesData = Array<Int>;

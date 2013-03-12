@@ -135,7 +135,7 @@ class BytesBuffer {
 		#elseif java
 		var buf = b.toByteArray();
 		var bytes = new Bytes(buf.length, buf);
-		#elseif nodejs
+		#elseif (nodejs || nodejs_std)
 		var nb = new js.Node.NodeBuffer(b);
 		var bytes = new Bytes(nb.length,nb);
 		#else

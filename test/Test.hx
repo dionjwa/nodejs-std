@@ -5,16 +5,21 @@ import haxe.Firebug;
 #end
 import haxe.unit.TestRunner;
 
-class Test {
-    
+class Test 
+{
+	static var test = Macro.makeSys();
 	static function main()
 	{
+		trace("is nodejs defined?: " + haxe.macro.Compiler.getDefine("nodejs"));
+		
 		#if !haxe3
 		// Redirect prints/traces to console.log
 		TestRunner.print = cast Firebug.trace;
 		#else
 		untyped TestRunner.print = console.log;
         		#end
+        		
+        		trace('test=' + test);
         		
 		var runner = new TestRunner();
 		runner.add(new TestSys());

@@ -24,10 +24,6 @@
  */
 package haxe;
 
-#if !nodejs
-#error
-#end
-
 import js.Node;
 
 class Http {

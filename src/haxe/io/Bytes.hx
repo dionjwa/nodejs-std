@@ -57,7 +57,7 @@ class Bytes {
 		b[pos] = untyped __call__("chr", v);
 		#elseif cpp
 		untyped b[pos] = v;
-    #elseif nodejs
+    #elseif (nodejs || nodejs_std)
     b[pos] = v;
 		#else
 		b[pos] = v & 0xFF;
@@ -76,7 +76,7 @@ class Bytes {
 		#elseif flash9
 		b.position = pos;
 		b.writeBytes(src.b,srcpos,len);
-		#elseif nodejs
+		#elseif (nodejs || nodejs_std)
     src.getData().copy(b,pos,srcpos,srcpos+len);
     #else
 		var b1 = b;
@@ -108,7 +108,7 @@ class Bytes {
 		#elseif php
 		// TODO: test me
 		return new Bytes(len, untyped __call__("substr", b, pos, len));
-		#elseif nodejs
+		#elseif (nodejs || nodejs_std)
 
     /* node slice does not return a copy, so need a blit(copy) */
     var
@@ -199,7 +199,7 @@ class Bytes {
 			}
 		}
 		return s;
-    #else nodejs
+    #else (nodejs || nodejs_std)
        return b.toString(js.Node.UTF8,pos,pos+len);
 		#end
 	}
@@ -243,7 +243,7 @@ class Bytes {
 		var a = new BytesData();
 		if (length>0) a[length-1] = untyped 0;
 		return new Bytes(length,a);
-		#elseif nodejs
+		#elseif (nodejs || nodejs_std)
     return new Bytes(length,new js.Node.NodeBuffer(length));
 
     #else
@@ -268,7 +268,7 @@ class Bytes {
 		var a = new BytesData();
 		untyped __global__.__hxcpp_bytes_of_string(a,s);
 		return new Bytes(a.length,a);
-		#elseif nodejs
+		#elseif (nodejs || nodejs_std)
     var nb = new js.Node.NodeBuffer(s, js.Node.NodeC.UTF8);
     return new Bytes(nb.length,nb);
     #else
