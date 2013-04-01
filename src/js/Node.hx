@@ -68,7 +68,7 @@ typedef NodeConsole = {
 typedef NodePath = {
 	function join(?p1:String,?p2:String,?p3:String):String;
 	function normalize(p:String):String;
-	function resolve(from:Array<String>,to:String):String;
+	function resolve(?from:Array<String>,to:String):String;
 	function dirname(p:String):String;
 	function basename(p:String,?ext:String):String;
 	function extname(p:String):String;
@@ -953,9 +953,9 @@ class Node {
 	public static function __init__() 
 	{
 		#if macro
-		trace("here");
-		haxe.Compiler.define("nodejs");
+		return;
 		#end
+
 		__filename = untyped __js__('__filename');
 		__dirname = untyped __js__('__dirname');
 

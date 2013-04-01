@@ -1,6 +1,10 @@
 package sys;
 
 import js.Node;
+
+using StringTools;
+
+#if !macro
 /**
 	This class allows you to get informations about the files and directories.
 **/
@@ -89,5 +93,44 @@ class FileSystem
 		return Node.path.join(p1, p2, p3);
 	}
 	
-
+	/**
+		Read all the files stored into the given directory.
+	**/
+	public static function readRecursive( path : String, ?filter :String->Bool) : Array<String>
+	{
+		return readRecursiveInternal(path, null, filter);
+	}
+	
+	static function readRecursiveInternal (root, dir = "", ?filter :String->Bool)
+	{
+		var result = [];
+		for (file in readDirectory(root + "/" + dir)) {
+			var fullPath = root + "/" + dir + "/" + file;
+			var relPath = if (dir == "") file else dir + "/" + file;
+			// trace('file=' + file);
+			if (FileSystem.isDirectory(fullPath)) {
+				if (fullPath.fastCodeAt(fullPath.length - 1) == "/".code) {
+					// Trim off the trailing slash. On Windows, FileSystem.exists() doesn't find directories
+					// with trailing slashes?
+					fullPath = fullPath.substr(0, -1);
+				}
+				
+				if (filter == null || filter(relPath)) {
+					result.push(relPath);
+				}
+				if (FileSystem.exists(fullPath)) {//Recurse even if we fail the filter.
+					result = result.concat(readRecursiveInternal(root, relPath, filter));
+				}
+			} else {
+				if (filter == null || filter(relPath)) {
+					result.push(relPath);
+				}
+			}
+		}
+		return result;
+	}
 }
+#else
+class FileSystem 
+{}
+#end

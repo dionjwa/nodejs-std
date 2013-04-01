@@ -30,6 +30,19 @@ class TestSys extends haxe.unit.TestCase
 		assertTrue(FileSystem.isDirectory(TEST_FOLDER));
 		assertTrue(FileSystem.readDirectory(TEST_FOLDER).length == 0);
 		assertEquals( "A", "A" );
+		
+		var folders = ["A", "B", "C"];
+		
+		for (f in folders) {
+			FileSystem.createDirectory(FileSystem.join(TEST_FOLDER, f));
+		}
+		
+		FileSystem.createDirectory(FileSystem.join(TEST_FOLDER, folders[0], "D"));
+		
+		trace(FileSystem.readRecursive(TEST_FOLDER));
+		
+		
+		
 	}
 
 }
