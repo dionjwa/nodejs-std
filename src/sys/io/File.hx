@@ -4,11 +4,11 @@ import js.Node;
 
 class File
 {
-	// public static function append( path : String, ?binary : Bool ) : FileOutput
-	// {
-	// 	throw "Not implemented";
-	// 	return null;
-	// }
+	public static function append( path : String, ?binary : Bool ) : FileOutput
+	{
+		throw "Not implemented";
+		return null;
+	}
 	
 	public static function copy( src : String, dst : String ) : Void
 	{
@@ -45,10 +45,10 @@ class File
 		Node.fs.writeFileSync(path, content);
 	}
 	
-	// public static function write( path : String, ?binary : Bool ) : FileOutput
-	// {
-	// 	throw "Not implemented";
-	// 	return null;
-	// }
+	public static function write( path : String, ?binary : Bool ) : FileOutput
+	{
+		throw "Not implemented";
+		return null;
+	}
 	
 }

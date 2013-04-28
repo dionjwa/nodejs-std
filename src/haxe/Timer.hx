@@ -104,7 +104,9 @@ class Timer {
 		Returns a timestamp, in seconds
 	**/
 	public static function stamp() : Float {
-		#if flash
+		#if nodejs
+			return Sys.time();
+		#elseif flash
 			return flash.Lib.getTimer() / 1000;
 		#elseif neko
 			return neko.Sys.time();
