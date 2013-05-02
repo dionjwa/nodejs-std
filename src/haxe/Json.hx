@@ -11,6 +11,6 @@ class Json
 	
 	inline public static function parse (jsonString :String) :Dynamic
 	{
-		return Node.parse(obj);
+		return Node.parse(jsonString);
 	}
 }
