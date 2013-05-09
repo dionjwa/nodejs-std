@@ -13,7 +13,7 @@ class FileSystem
 	/**
 		Tells if the given file or directory exists.
 	**/
-	public static function exists( path : String ) : Bool
+	inline public static function exists( path : String ) : Bool
 	{
 		return Node.fs.existsSync(path);
 	}
@@ -21,7 +21,7 @@ class FileSystem
 	/**
 		Rename the corresponding file or directory, allow to move it accross directories as well.
 	**/
-	public static function rename( path : String, newpath : String ) : Void
+	inline public static function rename( path : String, newpath : String ) : Void
 	{
 		Node.fs.renameSync(path, newpath);
 	}
@@ -29,7 +29,7 @@ class FileSystem
 	/**
 		Returns informations for the given file/directory.
 	**/
-	public static function stat( path : String ) : NodeStat
+	inline public static function stat( path : String ) : NodeStat
 	{
 		return Node.fs.statSync(path);
 	}
@@ -37,7 +37,7 @@ class FileSystem
 	/**
 		Returns the full path for the given path which is relative to the current working directory.
 	**/
-	public static function fullPath( relpath : String ) : String
+	inline public static function fullPath( relpath : String ) : String
 	{
 		return Node.path.resolve(null, relpath);
 	}
@@ -45,15 +45,25 @@ class FileSystem
 	/**
 		Tells if the given path is a directory. Throw an exception if it does not exists or is not accesible.
 	**/
+	// inline 
 	public static function isDirectory( path : String ) : Bool
 	{
-		return Node.fs.statSync(path).isDirectory();
+		#if debug
+			if (!exists(path)) {
+				throw "Path doesn't exist: " +path;
+			}
+		#end
+		if (Node.fs.statSync(path).isSymbolicLink()) {
+			return false;
+		} else {
+			return Node.fs.statSync(path).isDirectory();
+		}
 	}
 
 	/**
 		Create the given directory. Not recursive : the parent directory must exists.
 	**/
-	public static function createDirectory( path : String ) : Void
+	inline public static function createDirectory( path : String ) : Void
 	{
 		Node.fs.mkdirSync(path);
 	}
@@ -61,14 +71,14 @@ class FileSystem
 	/**
 		Delete a given file.
 	**/
-	public static function deleteFile( path : String ) : Void
+	inline public static function deleteFile( path : String ) : Void
 	{
 		Node.fs.unlinkSync(path);
 	}
 	/**
 		Delete a given directory.
 	**/
-	public static function deleteDirectory( path : String ) : Void
+	inline public static function deleteDirectory( path : String ) : Void
 	{
 		Node.fs.rmdirSync(path);
 	}
@@ -76,21 +86,23 @@ class FileSystem
 	/**
 		Read all the files/directories stored into the given directory.
 	**/
-	public static function readDirectory( path : String ) : Array<String>
+	inline public static function readDirectory( path : String ) : Array<String>
 	{
 		return Node.fs.readdirSync(path);
 	}
 	
-	public static function signature (path) :String
+	inline public static function signature (path) :String
 	{
 		var shasum = Node.crypto.createHash('md5');
 		shasum.update(Node.fs.readFileSync(path));
 		return shasum.digest(NodeC.HEX);
 	}
 	
-	public static function join(?p1:String,?p2:String,?p3:String) :String
+	inline public static function join(?p1:String, ?p2:String, ?p3:String) :String
 	{
-		return Node.path.join(p1, p2, p3);
+		//Node.js throws an exception 
+		//https://github.com/yahoo/mojito/pull/1028
+		return Node.path.join(p1 == null ? "" : p1, p2 == null ? "" : p2, p3 == null ? "" : p3);
 	}
 	
 	/**
@@ -98,34 +110,50 @@ class FileSystem
 	**/
 	public static function readRecursive( path : String, ?filter :String->Bool) : Array<String>
 	{
-		return readRecursiveInternal(path, null, filter);
+		var files = readRecursiveInternal(path, null, filter);
+		return  files == null ? [] :files;
 	}
 	
-	static function readRecursiveInternal (root, dir = "", ?filter :String->Bool)
+	static function readRecursiveInternal (root :String, ?dir :String = "", ?filter :String->Bool)
 	{
+		if (root == null) {
+			return null;
+		}
+		
+		var dirPath = join(root, dir);
+		
+		if (!(exists(dirPath) && isDirectory(dirPath))) {
+			return null;
+		}
+		
 		var result = [];
-		for (file in readDirectory(root + "/" + dir)) {
-			var fullPath = root + "/" + dir + "/" + file;
-			var relPath = if (dir == "") file else dir + "/" + file;
-			// trace('file=' + file);
-			if (FileSystem.isDirectory(fullPath)) {
-				if (fullPath.fastCodeAt(fullPath.length - 1) == "/".code) {
-					// Trim off the trailing slash. On Windows, FileSystem.exists() doesn't find directories
-					// with trailing slashes?
-					fullPath = fullPath.substr(0, -1);
-				}
-				
-				if (filter == null || filter(relPath)) {
-					result.push(relPath);
-				}
-				if (FileSystem.exists(fullPath)) {//Recurse even if we fail the filter.
-					result = result.concat(readRecursiveInternal(root, relPath, filter));
-				}
-			} else {
-				if (filter == null || filter(relPath)) {
-					result.push(relPath);
+		
+		for (file in readDirectory(dirPath)) {
+			var fullPath = join(dirPath, file);
+			var relPath = if (dir == "") file else join(dir, file);
+			if (exists(fullPath)) {
+				if (isDirectory(fullPath)) {
+					if (fullPath.fastCodeAt(fullPath.length - 1) == "/".code) {
+						// Trim off the trailing slash. On Windows, FileSystem.exists() doesn't find directories
+						// with trailing slashes?
+						fullPath = fullPath.substr(0, -1);
+					}
+					
+					if (filter != null && !filter(relPath)) {
+						continue;
+					}
+					
+					var recursedResults :Array<String> = readRecursiveInternal(root, relPath, filter);
+					if (recursedResults != null && recursedResults.length > 0) {
+						result = result.concat(recursedResults);
+					}
+				} else {
+					if (filter == null || filter(relPath)) {
+						result.push(relPath);
+					}
 				}
 			}
+			
 		}
 		return result;
 	}
