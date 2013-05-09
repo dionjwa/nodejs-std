@@ -72,10 +72,8 @@ typedef NodePath = {
 	function dirname(p:String):String;
 	function basename(p:String,?ext:String):String;
 	function extname(p:String):String;
-
-	/* deprecated 0.8, use NodeFs equivs instead */
-	function exists(p:String,cb:Bool->Void):Void;
-	function existsSync(p:String):Bool;
+	var sep :String;
+	var delimiter :String;
 }
 
 typedef NodeUrlObj = {
