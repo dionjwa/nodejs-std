@@ -726,7 +726,7 @@ typedef NodeHmac = {
 }
 	
 typedef NodeHash = {
-	function update(data:Dynamic):Void;
+	function update(data:Dynamic):NodeHash;
 	function digest(?enc:String):String;
 	function createHmac(algo:String,key:String):NodeHmac;
 }
