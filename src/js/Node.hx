@@ -940,7 +940,7 @@ class Node {
 	public static var __filename:String;
 	public static var __dirname:String;
 	public static var module:Dynamic;
-	public static var stringify:Dynamic->String;
+	public static var stringify:Dynamic->?Dynamic->?Dynamic->String;
 	public static var parse:String->Dynamic;
 	public static var queryString:NodeQueryString;
 	

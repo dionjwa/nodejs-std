@@ -4,9 +4,9 @@ import js.Node;
 
 class Json
 {
-	inline public static function stringify (obj :Dynamic) :String
+	inline public static function stringify (obj :Dynamic, ?replacer : Dynamic -> Dynamic -> Dynamic, ?insertion :Dynamic) :String
 	{
-		return Node.stringify(obj);
+		return Node.stringify(obj, replacer, insertion);
 	}
 	
 	inline public static function parse (jsonString :String) :Dynamic
