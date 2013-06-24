@@ -4,18 +4,6 @@
 
 # Std [haxe lib][haxelib] for [node.js][nodejs]
 
-### Please note:
-
-Due to issue [1603](https://code.google.com/p/haxe/issues/detail?id=1603) you will need to add 
-	
-	--remap sys:sys
-	
-to your hxml file or build command *after the -js option* (until that issue gets resolved).
-
-*Haxe 3/2.10 compatible.*
-
-*Include the compiler flag -D nodejs in your hxml*.
-
 ### Description
 
 This library contains all you need to use haxe plus the std libary with node.js.
