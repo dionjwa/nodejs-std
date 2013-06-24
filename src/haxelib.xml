@@ -1,8 +1,0 @@
-<project name="nodejs_std" url="https://github.com/dionjwa/nodejs-std" license="BSD">
-        <user name="dionjwa"/>
-        <description>std.io, Http, and sys library for node.js</description>
-        <version name="1.5.1">Addition of the Sys (as yet incomplete) and Json classes.</version>
-        <tag v="nodejs"/>
-        <tag v="node.js"/>
-        <tag v="js"/>
-</project>
