@@ -907,28 +907,28 @@ class NodeC {
 }
 
 class Node {	
-	public static var require(default,null) : String->Dynamic;
-	public static var querystring(default,null) : NodeQueryString;
-	public static var util(default,null) : NodeUtil;
-	public static var fs(default,null) : NodeFS;
-	public static var dgram(default,null) :NodeUDP ;
-	public static var net(default,null) : NodeNet;
-	public static var os(default,null) : NodeOs;
-	public static var http(default,null) : NodeHttp;
-	public static var https(default,null) : NodeHttps;
-	public static var path(default,null) : NodePath;
-	public static var url(default,null) : NodeUrl;
-	public static var dns(default,null) : NodeDns;
-	public static var vm(default,null) : NodeVM;
-	public static var process(default,null) : NodeProcess;
-	public static var tty(default,null) : NodeTTY;
-	public static var assert(default,null) : NodeAssert;
-	public static var crypto(default,null) : NodeCrypto;
-	public static var tls(default,null) : NodeTLS;
-	public static var repl(default,null) : NodeREPL;
-	public static var childProcess(default,null) : NodeChildProcessCommands;
+	public static var assert(get,null) : NodeAssert;
+	public static var childProcess(get,null) : NodeChildProcessCommands;
+	public static var cluster(get,null) : NodeCluster;
 	public static var console(default,null) : NodeConsole;
-	public static var cluster(default,null) : NodeCluster;
+	public static var crypto(get,null) : NodeCrypto;
+	public static var dgram(get,null) :NodeUDP ;
+	public static var dns(get,null) : NodeDns;
+	public static var fs(get,null) : NodeFS;
+	public static var http(get,null) : NodeHttp;
+	public static var https(get,null) : NodeHttps;
+	public static var net(get,null) : NodeNet;
+	public static var os(get,null) : NodeOs;
+	public static var path(get,null) : NodePath;
+	public static var process(default,null) : NodeProcess;
+	public static var querystring(get,null) : NodeQueryString;
+	public static var repl(get,null) : NodeREPL;
+	public static var require(default,null) : String->Dynamic;
+	public static var tls(get,null) : NodeTLS;
+	public static var tty(default,null) : NodeTTY;
+	public static var url(get,null) : NodeUrl;
+	public static var util(get,null) : NodeUtil;
+	public static var vm(get,null) : NodeVM;
 	
 	//	public static var paths:Array<String>;
 	public static var setTimeout:Dynamic->Int->?Array<Dynamic>->Int;
@@ -937,26 +937,42 @@ class Node {
 	public static var clearInterval:Int->Void;	
 	public static var global:Dynamic;
 	
-	public static var __filename:String;
-	public static var __dirname:String;
+	public static var __filename(get, null):String;
+	public static var __dirname(get, null):String;
 	public static var module:Dynamic;
 	public static var stringify:Dynamic->?Dynamic->?Dynamic->String;
 	public static var parse:String->Dynamic;
 	public static var queryString:NodeQueryString;
+
+	static inline function get_assert() : NodeAssert return require("assert");
+	static inline function get_childProcess() : NodeChildProcessCommands return require("child_process");
+	static inline function get_cluster() : NodeCluster return require("cluster");
+	static inline function get_crypto() : NodeCrypto return require("crypto");
+	static inline function get_dgram() : NodeUDP return require("dgram");
+	static inline function get_dns() : NodeDns return require("dns");
+	static inline function get_fs() : NodeFS return require("fs");
+	static inline function get_http() : NodeHttp return require("http");
+	static inline function get_https() : NodeHttps return require("https");
+	static inline function get_net() : NodeNet return require("net");
+	static inline function get_os() : NodeOs return require("os");
+	static inline function get_path() : NodePath return require("path");
+	static inline function get_querystring() : NodeQueryString return require("querystring");
+	static inline function get_repl() : NodeREPL return require("repl");
+	static inline function get_tls() : NodeTLS return require("tls");
+	static inline function get_url() : NodeUrl return require("url");
+	static inline function get_util() : NodeUtil return require("util");
+	static inline function get_vm() : NodeVM return require("vm");
+
+	static inline function get___filename() : String return untyped __js__('__filename');
+	static inline function get___dirname() : String return untyped __js__('__dirname');
 	
 	public static function newSocket(?options):NodeNetSocket {
 		return untyped __js__("new js.Node.net.Socket(options)");
 	}
 	
+	#if !macro
 	public static function __init__() 
 	{
-		#if macro
-		return;
-		#end
-
-		__filename = untyped __js__('__filename');
-		__dirname = untyped __js__('__dirname');
-
 		setTimeout = untyped __js__('setTimeout');
 		clearTimeout = untyped __js__('clearTimeout');
 		setInterval = untyped __js__('setInterval');
@@ -968,28 +984,8 @@ class Node {
 		module = untyped __js__('module');	// ref to the current module
 		stringify = untyped __js__('JSON.stringify');
 		parse = untyped __js__('JSON.parse');
-	 
-		// just load everything, maybe not to everyone's taste
-		util = require("util");
-		fs = require("fs");
-		net = require("net");
-		http = require("http");
-		https = require("https");
-		path = require('path');
-		url = require('url');
-		os = require('os');
-		crypto = require("crypto");
-		dns = require("dns");
-		queryString = require('querystring');
-		assert = require('assert');
-		childProcess = require('child_process');
-		vm = require('vm');
-		tls = require('tls');
-		dgram = require('dgram');
-		assert = require('assert');
-		repl = require('repl');
-		cluster = require("cluster");
 	}
+	#end
 }
 
 
