@@ -664,16 +664,6 @@ typedef NodeDns = {
 	function lookup(domain:String,?family:String,cb:NodeErr->String->Int->Void):Void;
 }
 
-typedef NodeTTY = {
-	/* returns a non homogenous array of elements, el[0].fd, el[1] is a child process obj
-		 best check it manually */
-	function open(path:String,args:Dynamic):Array<Dynamic>;
-	function isatty(fd:Int):Bool;
-	function setRawMode(mode:Bool):Void;
-	function setWindowSize(fd:Int,row:Int,col:Int):Void;
-	function getWindowSize(fd:Int):{row:Int,col:Int};
-}
-
 /* UDP ........................................ */
 
 typedef NodeUDPCallback = NodeErr->haxe.io.Bytes->Void;
@@ -925,7 +915,6 @@ class Node {
 	public static var repl(get,null) : NodeREPL;
 	public static var require(default,null) : String->Dynamic;
 	public static var tls(get,null) : NodeTLS;
-	public static var tty(default,null) : NodeTTY;
 	public static var url(get,null) : NodeUrl;
 	public static var util(get,null) : NodeUtil;
 	public static var vm(get,null) : NodeVM;
