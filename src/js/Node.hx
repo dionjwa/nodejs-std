@@ -633,7 +633,7 @@ typedef NodeAgent = { > NodeEventEmitter,
 	var sockets:Array<NodeNetSocket>;
 	var queue:Array<NodeHttpServerReq>;
 }
-		
+	
 typedef NodeHttp = {
 	function createServer(listener:NodeHttpServerReq->NodeHttpServerResp->Void):NodeHttpServer;
 	function createClient(port:Int,host:String):NodeHttpClient;
@@ -647,7 +647,7 @@ typedef NodeHttp = {
 typedef NodeHttps = {
 	function createServer(options:{key:String,cert:String},
 												listener:NodeHttpServerReq->NodeHttpServerResp->Void):NodeHttpServer;
-	function request(options:NodeHttpsReqOpt,res:NodeHttpClientResp->Void):Void;
+	function request(options:NodeHttpsReqOpt,res:NodeHttpClientResp->Void):NodeHttpClientReq;
 	function get(options:NodeHttpsReqOpt,res:NodeHttpClientResp->Void):Void;
 }
 	

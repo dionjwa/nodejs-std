@@ -27,8 +27,6 @@ package haxe;
 import js.Node;
 
 class Http {
-
-	static var http : NodeHttp = Node.require('http');
 	public var url : String;
 	public var async : Bool;
 	var postData : String;
@@ -69,17 +67,20 @@ class Http {
 	}
 
 	public function request( post : Bool ) : Void {
-		var me = this;
-		var options :Dynamic = {};
-		var uri = postData;
+		var me = this,
+			options : Dynamic = {},
+			uri = postData,
+			is_secure = url.substring(0, 8) == "https://";
 		
 		if (url.substring(0, 7) == "http://") {
 			url = url.substr(7);
+		} else if(is_secure) {
+			url = url.substr(8);
 		}
 		
 		var urlTokens = url.split("/");
 		var host = urlTokens.shift();
-		options.path = urlTokens.length > 0 ? urlTokens.join("/") : "/";
+		options.path = urlTokens.length > 0 ? "/" + urlTokens.join("/") : "/";
 		
 		var hostTokens = host.split(":");
 		if (hostTokens != null && hostTokens.length > 1) {
@@ -123,20 +124,22 @@ class Http {
 			}
 		}
 			
-		var request :NodeHttpClientReq = http.request(options, function(response :NodeHttpClientResp) {
+		var service : { function request(options:Dynamic,res:NodeHttpClientResp->Void):NodeHttpClientReq; } = null;
+		if(is_secure)
+			service = Node.https;
+		else
+			service = Node.http;
+
+		var request : NodeHttpClientReq = service.request(options, function(response :NodeHttpClientResp) {
 			var responseData = '';
 			response.setEncoding('utf8');
-			
 			var s = try response.statusCode catch( e : Dynamic ) 0;
-			if (s == untyped __js__("undefined")) {
-			}
-			// s = null;
 				
 			if( response.statusCode != null ) {
 				me.onStatus(response.statusCode);
 			}
 			if( response.statusCode != null && response.statusCode >= 200 && response.statusCode < 400 ) {
-				// me.onData(r.responseText);
+
 			} else {
 				switch( s ) {
 					case 0:
@@ -171,12 +174,12 @@ class Http {
 			});
 			
 			response.once('error', function(error :Dynamic) {
-				me.onError("Http Error: " + error);
+				me.onError("Http Response Error: " + error);
 			});
 		});
-		
+
 		request.on('error', function(error :Dynamic) {
-			me.onError("Http Error: " + error);
+			me.onError("Http Request Error: " + error);
 		});
 			
 		request.end();
