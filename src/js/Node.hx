@@ -923,7 +923,9 @@ class Node {
 	public static var setTimeout:Dynamic->Int->?Array<Dynamic>->Int;
 	public static var clearTimeout:Int->Void;
 	public static var setInterval:Dynamic->Int->?Array<Dynamic>->Int;
-	public static var clearInterval:Int->Void;	
+	public static var clearInterval:Int->Void;
+	public static var setImmediate:Dynamic->?Array<Dynamic>->Int;
+	public static var clearImmediate:Int->Void;	
 	public static var global:Dynamic;
 	
 	public static var __filename(get, null):String;
@@ -966,6 +968,8 @@ class Node {
 		clearTimeout = untyped __js__('clearTimeout');
 		setInterval = untyped __js__('setInterval');
 		clearInterval = untyped __js__('clearInterval');
+		setImmediate = untyped __js__('setImmediate');
+		clearImmediate = untyped __js__('clearImmediate');
 		global = untyped __js__('global');
 		process = untyped __js__('process');
 		require = untyped __js__('require');
