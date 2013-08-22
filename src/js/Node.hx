@@ -1,10 +1,10 @@
 /* Same license as Node.js
 
 	Maintainer: Dion Amago, dion@transition9.com
-	
-	Copied from Ritchie Turner's (blackdog@cloudshift.cl) repo due to a lack of contact with Ritchie and a desire to 
-	keep node.js libraries updated 
-	
+
+	Copied from Ritchie Turner's (blackdog@cloudshift.cl) repo due to a lack of contact with Ritchie and a desire to
+	keep node.js libraries updated
+
 	From Ritchie's docs:
 	"Node.js 0.8 api without haXe embellishments so that other apis may be implemented
 	on top without being hindered by design choices here.
@@ -16,7 +16,7 @@ package js;
 typedef NodeListener = Dynamic;
 typedef NodeErr = Null<String>;
 
-/* 
+/*
 	 emits: newListener
  */
 typedef NodeEventEmitter = {
@@ -64,7 +64,7 @@ typedef NodeConsole = {
 	function trace():Void;
 	function assert():Void;
 }
-	
+
 typedef NodePath = {
 	function join(?p1:String,?p2:String,?p3:String):String;
 	function normalize(p:String):String;
@@ -110,7 +110,7 @@ typedef NodeQueryString = {
 
 	var length(default,null) : Int;
 	var INSPECT_MAX_BYTES:Int;
-	
+
 	function copy(targetBuffer:NodeBuffer,targetStart:Int,sourceStart:Int,sourceEnd:Int):Void;
 	function slice(start:Int,end:Int):NodeBuffer;
 	function write(s:String,?offset:Int,?length:Int,?enc:String):Int;
@@ -159,12 +159,12 @@ typedef NodeScript = {
 	function runInNewContext(?sandbox:Dynamic):Void;
 }
 
-typedef NodeVM = {	
+typedef NodeVM = {
 	function runInThisContext(code:String,?fileName:String):Dynamic;
 	function runInNewContext(?sandbox:Dynamic):Void;
 	function createScript(code:Dynamic,?fileName:String):NodeScript;
 }
-	
+
 typedef ReadStreamOpt = {
 	flags:String,
 	encoding:String,
@@ -181,7 +181,7 @@ typedef WriteStreamOpt = {
 	var mode:Int;
 }
 
-/* 
+/*
 	 Emits:
 	 data,end,error,close
 */
@@ -195,7 +195,7 @@ typedef NodeReadStream = { > NodeEventEmitter,
 	function pipe(dest:NodeWriteStream,?opts:{end:Bool}):Void;
 }
 
-/* 
+/*
 	 Emits:
 	 drain,error,close,pipe
 */
@@ -250,7 +250,7 @@ typedef NodeStat = {
 	var atime:NodeJsDate;
 	var mtime:NodeJsDate;
 	var ctime:NodeJsDate;
-	
+
 	function isFile():Bool;
 	function isDirectory():Bool;
 	function isBlockDevice():Bool;
@@ -270,31 +270,31 @@ typedef NodeFSWatcher = { > NodeEventEmitter,
 typedef NodeFS = {
 	function rename(from:String,to:String,cb:NodeErr->Void):Void;
 	function renameSync(from:String,to:String):Void;
-	
+
 	function stat(path:String,cb:NodeErr->NodeStat->Void):Void;
 	function statSync(path:String):NodeStat;
 
 	function lstat(path:Dynamic,cb:NodeErr->NodeStat->Void):Void;
 	function lstatSync(path:String):NodeStat;
-	
+
 	function fstat(fd:Int,cb:NodeErr->NodeStat->Void):Void;
 	function fstatSync(fd:Int):NodeStat;
-	
+
 	function link(srcPath:String,dstPath:String,cb:NodeErr->Void):Void;
 	function linkSync(srcPath:String,dstPath:String):Void;
 
 	function unlink(path:String,cn:NodeErr->Void):Void;
 	function unlinkSync(path:String):Void;
-	
+
 	function symlink(linkData:Dynamic,path:String,?type:String,?cb:NodeErr->Void):Void;
 	function symlinkSync(linkData:Dynamic,path:String,?type:String):Void;
-	
+
 	function readlink(path:String,cb:NodeErr->String->Void):Void;
 	function readlinkSync(path:String):String;
-	
+
 	function realpath(path:String,cb:NodeErr->String->Void):Void;
 	function realpathSync(path:String):String;
-	
+
 	function chmod(path:String,mode:Int,cb:NodeErr->Void):Void;
 	function chmodSync(path:String,?mode:Int):Void;
 
@@ -303,35 +303,35 @@ typedef NodeFS = {
 
 	function chown(path:String,uid:Int,gid:Int,cb:NodeErr->Void):Void ;
 	function chownSync(path:String,uid:Int,gid:Int):Void;
-	
+
 	function fchown(fd:Int,uid:Int,gid:Int,cb:NodeErr->Void):Void ;
 	function fchownSync(fd:Int,uid:Int,gid:Int):Void;
 
 	function rmdir(path:String,cb:NodeErr->Void):Void;
 	function rmdirSync(path:String):Void;
-	
+
 	function mkdir(path:String,?mode:Int,?cb:NodeErr->Void):Void;
 	function mkdirSync(path:String,?mode:Int):Void;
-	
+
 	function readdir(path:String,cb:NodeErr->Array<String>->Void):Void;
 	function readdirSync(path:String):Array<String>;
-	
+
 	function close(fd:Int,cb:NodeErr->Void):Void;
 	function closeSync(fd:Int):Void;
-	
+
 	function open(path:String,flags:String,?mode:Int,cb:NodeErr->Int->Void):Void;
-	
+
 	function openSync(path:String,flags:String,?mode:Int):Int;
-	
+
 	function write(fd:Int,bufOrStr:Dynamic,offset:Int,length:Int,position:Null<Int>,?cb:NodeErr->Int->Void):Void;
 	function writeSync(fd:Int,bufOrStr:Dynamic,offset:Int,length:Int,position:Null<Int>):Int;
-	
+
 	function read(fd:Int,buffer:NodeBuffer,offset:Int,length:Int,position:Int,cb:NodeErr->Int->NodeBuffer->Void):Void;
 	function readSync(fd:Int,buffer:NodeBuffer,offset:Int,length:Int,position:Int):Int;
-	
+
 	function truncate(fd:Int,len:Int,cb:NodeErr->Void):Void;
 	function truncateSync(fd:Int,len:Int):NodeErr;
-	
+
 	function readFile(path:String,?enc:String,cb:NodeErr->String->Void):Void;
 	function readFileSync(path:String,?enc:String):String;
 
@@ -346,7 +346,7 @@ typedef NodeFS = {
 	@:overload(function(fileName:String,data:NodeBuffer):Void {})
 	function appendFileSync(fileName:String,contents:String,?enc:String):Void;
 
-	
+
 	function utimes(path:String,atime:Dynamic,mtime:Dynamic,cb:NodeErr->Void):Void;
 	function utimeSync(path:String,atime:Dynamic,mtime:Dynamic):Void;
 
@@ -355,7 +355,7 @@ typedef NodeFS = {
 
 	function fsync(fd:Int,cb:NodeErr->Void):Void;
 	function fsyncSync(fd:Int):Void;
-	
+
 	function watchFile(fileName:String,?options:NodeWatchOpt,listener:NodeStat->NodeStat->Void):Void;
 	function unwatchFile(fileName:String):Void;
 	function watch(fileName:String,?options:NodeWatchOpt,listener:String->String->Void):NodeFSWatcher;
@@ -365,7 +365,7 @@ typedef NodeFS = {
 	function exists(p:String,cb:Bool->Void):Void;
 	function existsSync(p:String):Bool;
 }
-	
+
 typedef NodeUtil = {
 	function debug(s:String):Void;
 	function inspect(o:Dynamic,?showHidden:Bool,?depth:Int):Void;
@@ -379,7 +379,7 @@ typedef NodeUtil = {
 	function format(out:String,?a1:Dynamic,?a2:Dynamic,?a3:Dynamic):Void; // should be arbitrary # of args
 }
 
-/* 
+/*
 	Emits:
 	exit, uncaughtException + SIGNAL events (SIGINT etc)
  */
@@ -397,7 +397,7 @@ typedef NodeProcess = { > NodeEventEmitter,
 	var execPath:String;
 	var version:String;
 	var versions:Dynamic;
-	
+
 	function memoryUsage():{rss:Int,vsize:Int,heapUsed:Int,heapTotal:Int};
 	function nextTick(fn:Void->Void):Void;
 	function exit(code:Int):Void;
@@ -430,10 +430,10 @@ typedef NodeChildProcess = { > NodeEventEmitter,
 */
 typedef NodeChildForkProcess = { > NodeChildProcess,
 	 @:overload(function(o:Dynamic,?socket:NodeNetSocket):Void {})
-	 function send(o:Dynamic,?server:NodeNetServer):Void;	
+	 function send(o:Dynamic,?server:NodeNetServer):Void;
 }
 
-typedef NodeChildProcessCommands = { 
+typedef NodeChildProcessCommands = {
 	function spawn(command: String,args: Array<String>,?options: Dynamic ) : NodeChildProcess;
 	function exec(command: String,?options:Dynamic,cb: {code:Int}->String->String->Void ): NodeChildProcess;
 	function execFile(command: String,?options:Dynamic,cb: {code:Int}->String->String->Void ): NodeChildProcess;
@@ -469,23 +469,23 @@ typedef NodeCluster = { > NodeEventEmitter,
 
 
 /* NET ............................................. */
-	
-/* 
+
+/*
 	 Emits:
 	 connection
 */
-typedef NodeNet = { > NodeEventEmitter, 
+typedef NodeNet = { > NodeEventEmitter,
 	function createServer(?options:{allowHalfOpen:Bool},fn:NodeNetSocket->Void):NodeNetServer;
 	@:overload(function(cs:String):NodeNetSocket {})
 	function createConnection(port:Int,host:String):NodeNetSocket;
 	@:overload(function(cs:String):NodeNetSocket {})
-	function connect(port:Int,host:String):NodeNetSocket;										
+	function connect(port:Int,host:String):NodeNetSocket;
 	function isIP(input:String):Int; // 4 or 6
 	function isIPv4(input:String):Bool;
 	function isIPv6(input:String):Bool;
 }
-	
-/* 
+
+/*
 	 Emits:
 	 connection,close,error,listening
 */
@@ -494,7 +494,7 @@ typedef NodeNetServer = { > NodeEventEmitter,
 	var connections:Int;
 
 	@:overload(function(path:String,?cb:Void->Void):Void {})
-	@:overload(function(fd:Int,?cb:Void->Void):Void {})												
+	@:overload(function(fd:Int,?cb:Void->Void):Void {})
 	function listen(port:Int,?host:String,?cb:Void->Void):Void;
 	function close(cb:Void->Void):Void;
 	function address():Void;
@@ -508,19 +508,19 @@ typedef NodeConnectionOpt = {
 }
 
 /*
-	
+
 	Emits:
 	connect,data,end,timeout,drain,error,close
 
 	implements a duplex stream interface
 */
-typedef NodeNetSocket = { > NodeEventEmitter, 
+typedef NodeNetSocket = { > NodeEventEmitter,
 	var remoteAddress:String;
 	var remotePort:Int;
 	var bufferSize:Int;
 	var bytesRead:Int;
 	var bytesWritten:Int;
-													
+
 	@:overload(function(path:String,?cb:Void->Void):Void {})
 	@:overload(function(options:NodeConnectionOpt,connectionListener:Void->Void):Void {})
 	function connect(port:Int,?host:String,?cb:Void->Void):Void;
@@ -535,13 +535,13 @@ typedef NodeNetSocket = { > NodeEventEmitter,
 	function setTimeout(timeout:Int,?cb:Void->Void):Void;
 	function setNoDelay(?noDelay:Bool):Void;
 	function setKeepAlive(enable:Bool,?delay:Int):Void;
-	function address():{address:String,port:Int}; 
+	function address():{address:String,port:Int};
 }
 
 /* HTTP ............................................*/
 
-	
-/* 
+
+/*
 	 Emits:
 	 data,end,close
  */
@@ -557,9 +557,9 @@ typedef NodeHttpServerReq = { >NodeEventEmitter,
 	function resume():Void;
 }
 
-/* 
+/*
  */
-typedef NodeHttpServerResp = { > NodeWriteStream, 
+typedef NodeHttpServerResp = { > NodeWriteStream,
 	var statusCode:Int;
 	function writeContinue():Void;
 	@:overload(function(statusCode:Int,?reasonPhrase:String,?headers:Dynamic):Void {})
@@ -589,7 +589,7 @@ typedef NodeHttpClientResp = { > NodeEventEmitter,
 	var client:NodeHttpClient;
 	function setEncoding(enc:String):Void;
 	function resume():Void;
-	function pause():Void;	
+	function pause():Void;
 }
 
 
@@ -599,7 +599,7 @@ typedef NodeHttpClient = { > NodeEventEmitter,
 	function getPeerCertificate():NodePeerCert;
 }
 
-/* 
+/*
 	 Emits:
 	 request,connection,checkContinue,connect,clientError,close
  */
@@ -609,7 +609,7 @@ typedef NodeHttpServer = { > NodeEventEmitter,
 	function close(?cb:Void->Void):Void;
 }
 
-/* 
+/*
  */
 typedef NodeHttpReqOpt = {
 	var host:String;
@@ -624,7 +624,7 @@ typedef NodeHttpsReqOpt = { > NodeHttpReqOpt,
 	var rejectUnauthorized:Dynamic;
 }
 
-/* 
+/*
 	 Emits:
 	 upgrade,continue
 */
@@ -633,7 +633,7 @@ typedef NodeAgent = { > NodeEventEmitter,
 	var sockets:Array<NodeNetSocket>;
 	var queue:Array<NodeHttpServerReq>;
 }
-	
+
 typedef NodeHttp = {
 	function createServer(listener:NodeHttpServerReq->NodeHttpServerResp->Void):NodeHttpServer;
 	function createClient(port:Int,host:String):NodeHttpClient;
@@ -643,14 +643,14 @@ typedef NodeHttp = {
 	function get(options:NodeHttpReqOpt,res:NodeHttpClientResp->Void):Void;
 	function getAgent(host:String,port:Int):NodeAgent;
 }
-	
+
 typedef NodeHttps = {
 	function createServer(options:{key:String,cert:String},
 												listener:NodeHttpServerReq->NodeHttpServerResp->Void):NodeHttpServer;
 	function request(options:NodeHttpsReqOpt,res:NodeHttpClientResp->Void):NodeHttpClientReq;
 	function get(options:NodeHttpsReqOpt,res:NodeHttpClientResp->Void):Void;
 }
-	
+
 typedef NodeDns = {
 	function resolve(domain:String,?rrtype:String,cb:NodeErr->Array<Dynamic>->Void):Void;
 	function resolveNs(domain:String,cb:NodeErr->Array<Dynamic>->Void):Void;
@@ -673,7 +673,7 @@ typedef NodeUDP = {
 	function createSocket(type:String,cb:NodeUDPCallback):NodeDGSocket;
 }
 
-/* 
+/*
 	 Emits: message,listening,close
 */
 typedef NodeDGSocket = { > NodeEventEmitter,
@@ -688,10 +688,10 @@ typedef NodeDGSocket = { > NodeEventEmitter,
 	function addMembership(multicastAddress:String,?multicastInterface:String):Void;
 	function dropMembership(multicastAddress:String,?multicastInterface:String):Void;
 }
-	
+
 
 /* CRYPTO ..................................... */
-	
+
 typedef NodeCredDetails = {
 	var key:String;
 	var cert:String;
@@ -714,7 +714,7 @@ typedef NodeHmac = {
 	function update(data:Dynamic):Void;
 	function digest(?enc:String):String;
 }
-	
+
 typedef NodeHash = {
 	function update(data:Dynamic):NodeHash;
 	function digest(?enc:String):String;
@@ -726,18 +726,18 @@ typedef NodeCipher = {
 	function final(output_enc:String):Void;
 	function setAutoPadding(padding:Bool):Void; // default true
 }
-	
+
 typedef NodeDecipher = {
 	function update(data:Dynamic,?input_enc:String,?output_enc:String):Dynamic;
 	function final(?output_enc:String):Dynamic;
 	function setAutoPadding(padding:Bool):Void; // default true
 }
-	
+
 typedef NodeSigner = {
 	function update(data:Dynamic):Void;
 	function sign(private_key:String,?output_format:String):Dynamic;
 }
-	
+
 typedef NodeVerify = {
 	function update(data:Dynamic):Void;
 	function verify(cert:String,?sig_format:String):Bool;
@@ -773,7 +773,7 @@ typedef NodeCrypto = {
 
 /* TLS/SSL ................................................ */
 
-/* 
+/*
 	 Emits:
 	 secureConnection
 */
@@ -794,7 +794,7 @@ typedef NodeTLS ={
 
 /*
 	Snarfed from Tong's version ...
- */ 
+ */
 typedef NodeAssert = {
 	function fail(actual:Dynamic,expected:Dynamic,message:Dynamic,operator:Dynamic): Void;
 	function ok(value:Dynamic,?message:Dynamic):Void;
@@ -875,7 +875,7 @@ class NodeC {
 	public static inline var EVENT_STREAM_SECURE = "secure";
 	public static inline var EVENT_STREAM_TIMEOUT = "timeout";
 	public static inline var EVENT_STREAM_PIPE = "pipe";
-	
+
 	public static inline var EVENT_PROCESS_EXIT = "exit";
 	public static inline var EVENT_PROCESS_UNCAUGHTEXCEPTION = "uncaughtException";
 	public static inline var EVENT_PROCESS_SIGINT = "SIGINT";
@@ -902,7 +902,7 @@ class NodeC {
 	public static inline var FILE_READWRITE_APPEND = "a+";
 }
 
-class Node {	
+class Node {
 	public static var assert(get,null) : NodeAssert;
 	public static var childProcess(get,null) : NodeChildProcessCommands;
 	public static var cluster(get,null) : NodeCluster;
@@ -924,16 +924,16 @@ class Node {
 	public static var url(get,null) : NodeUrl;
 	public static var util(get,null) : NodeUtil;
 	public static var vm(get,null) : NodeVM;
-	
+
 	//	public static var paths:Array<String>;
 	public static var setTimeout:Dynamic->Int->?Array<Dynamic>->Int;
 	public static var clearTimeout:Int->Void;
 	public static var setInterval:Dynamic->Int->?Array<Dynamic>->Int;
 	public static var clearInterval:Int->Void;
 	public static var setImmediate:Dynamic->?Array<Dynamic>->Int;
-	public static var clearImmediate:Int->Void;	
+	public static var clearImmediate:Int->Void;
 	public static var global:Dynamic;
-	
+
 	public static var __filename(get, null):String;
 	public static var __dirname(get, null):String;
 	public static var module:Dynamic;
@@ -962,20 +962,18 @@ class Node {
 
 	static inline function get___filename() : String return untyped __js__('__filename');
 	static inline function get___dirname() : String return untyped __js__('__dirname');
-	
+
 	public static function newSocket(?options):NodeNetSocket {
 		return untyped __js__("new js.Node.net.Socket(options)");
 	}
-	
+
 	#if !macro
-	public static function __init__() 
+	public static function __init__()
 	{
 		setTimeout = untyped __js__('setTimeout');
 		clearTimeout = untyped __js__('clearTimeout');
 		setInterval = untyped __js__('setInterval');
 		clearInterval = untyped __js__('clearInterval');
-		setImmediate = untyped __js__('setImmediate');
-		clearImmediate = untyped __js__('clearImmediate');
 		global = untyped __js__('global');
 		process = untyped __js__('process');
 		require = untyped __js__('require');
@@ -983,6 +981,12 @@ class Node {
 		module = untyped __js__('module');	// ref to the current module
 		stringify = untyped __js__('JSON.stringify');
 		parse = untyped __js__('JSON.parse');
+		// Not present in Node < 0.9
+		var version = process.version.substr(1).split(".").map(Std.parseInt);
+		if (version[0] > 0 || version[1] >= 9) {
+			setImmediate = untyped __js__('setImmediate');
+			clearImmediate = untyped __js__('clearImmediate');
+		}
 	}
 	#end
 }
