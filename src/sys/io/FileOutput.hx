@@ -4,10 +4,10 @@ package sys.io;
 class FileOutput extends haxe.io.Output {
 
     var stream:js.Node.NodeWriteStream;
-    var buffer:js.Node.NodeBuffer;
+    var byteBuffer:js.Node.NodeBuffer;
     function new(path:String, ?binary:Bool) {
         stream = js.Node.fs.createWriteStream(path);
-        buffer = new js.Node.NodeBuffer(1);
+        byteBuffer = new js.Node.NodeBuffer(1);
     }
 
     public function seek(p:Int, pos:FileSeek):Void  {
@@ -18,9 +18,12 @@ class FileOutput extends haxe.io.Output {
         return 0;
     }
 
+    public override function write(bytes:haxe.io.Bytes):Void {
+        stream.write(bytes.getData());
+    }
     public override function writeByte(c:Int):Void {
-        buffer[0] = c;
-        stream.write(buffer);
+        byteBuffer[0] = c;
+        stream.write(byteBuffer);
     }
     public override function close():Void {
         stream.end();
