@@ -15,34 +15,43 @@ import haxe.io.StringInput;
 
 class TestSys extends haxe.unit.TestCase
 {
-	public static var TEST_FOLDER :String = "foo";
-	
+	public static var TEST_FOLDER :String = FileSystem.join("test", "foo");
+
 	public function testFileSystem()
 	{
 		if (FileSystem.exists(TEST_FOLDER)) {
+			assertTrue(FileSystem.readDirectory(TEST_FOLDER).length == 0);
 			FileSystem.deleteDirectory(TEST_FOLDER);
 		}
-		
+
 		assertFalse(FileSystem.exists(TEST_FOLDER));
-		
+
 		FileSystem.createDirectory(TEST_FOLDER);
 		assertTrue(FileSystem.exists(TEST_FOLDER));
 		assertTrue(FileSystem.isDirectory(TEST_FOLDER));
 		assertTrue(FileSystem.readDirectory(TEST_FOLDER).length == 0);
 		assertEquals( "A", "A" );
-		
+
 		var folders = ["A", "B", "C"];
-		
+
 		for (f in folders) {
-			FileSystem.createDirectory(FileSystem.join(TEST_FOLDER, f));
+			var path = FileSystem.join(TEST_FOLDER, f);
+			FileSystem.createDirectory(path);
+			assertTrue(FileSystem.exists(path));
+			assertTrue(FileSystem.isDirectory(path));
 		}
-		
+
 		FileSystem.createDirectory(FileSystem.join(TEST_FOLDER, folders[0], "D"));
-		
-		trace(FileSystem.readRecursive(TEST_FOLDER));
-		
-		
-		
+
+		FileSystem.deleteDirectory(FileSystem.join(TEST_FOLDER, folders[0], "D"));
+		for (f in folders) {
+			var path = FileSystem.join(TEST_FOLDER, f);
+			FileSystem.deleteDirectory(path);
+			assertFalse(FileSystem.exists(path));
+		}
+
+		assertTrue(FileSystem.readDirectory(TEST_FOLDER).length == 0);
+		FileSystem.deleteDirectory(TEST_FOLDER);
 	}
 
 }

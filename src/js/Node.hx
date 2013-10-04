@@ -848,6 +848,11 @@ typedef NodeZLib = {
 	function unzip(buf:NodeBuffer,cb:NodeErr->Dynamic->Void):Void;
 }
 
+typedef NodeJson = {
+	function stringify(obj :Dynamic, ?replacer :Dynamic, ?space :Dynamic):String;
+	function parse(text :String) :Dynamic;
+}
+
 @:native("Error")
 extern class Error
 {
@@ -904,7 +909,7 @@ class NodeC {
 
 class Node {
 	public static var assert(get,null) : NodeAssert;
-	public static var childProcess(get,null) : NodeChildProcessCommands;
+	public static var child_process(get,null) : NodeChildProcessCommands;
 	public static var cluster(get,null) : NodeCluster;
 	public static var console(default,null) : NodeConsole;
 	public static var crypto(get,null) : NodeCrypto;
@@ -924,6 +929,8 @@ class Node {
 	public static var url(get,null) : NodeUrl;
 	public static var util(get,null) : NodeUtil;
 	public static var vm(get,null) : NodeVM;
+	public static var json(get,null) : NodeJson;
+
 
 	//	public static var paths:Array<String>;
 	public static var setTimeout:Dynamic->Int->?Array<Dynamic>->Int;
@@ -942,7 +949,7 @@ class Node {
 	public static var queryString:NodeQueryString;
 
 	static inline function get_assert() : NodeAssert return require("assert");
-	static inline function get_childProcess() : NodeChildProcessCommands return require("child_process");
+	static inline function get_child_process() : NodeChildProcessCommands return require("child_process");
 	static inline function get_cluster() : NodeCluster return require("cluster");
 	static inline function get_crypto() : NodeCrypto return require("crypto");
 	static inline function get_dgram() : NodeUDP return require("dgram");
@@ -962,6 +969,7 @@ class Node {
 
 	static inline function get___filename() : String return untyped __js__('__filename');
 	static inline function get___dirname() : String return untyped __js__('__dirname');
+	static inline function get_json() : NodeJson return untyped __js__('JSON');
 
 	public static function newSocket(?options):NodeNetSocket {
 		return untyped __js__("new js.Node.net.Socket(options)");
