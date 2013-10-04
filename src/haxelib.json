@@ -4,10 +4,9 @@
   "tags": ["nodejs","node.js","js"],
   "description": "std.io, Http, and sys library for node.js",
   "contributors": ["dionjwa"],
-  "releasenote": "Addition of the Sys (as yet incomplete) and Json classes.",
-  "version": "1.5.1",
+  "releasenote": "Lazy module loading, updated API, unit test coverage",
+  "version": "2.0.0",
   "url": "https://github.com/dionjwa/nodejs-std",
   "dependencies": {
-
   }
 }
