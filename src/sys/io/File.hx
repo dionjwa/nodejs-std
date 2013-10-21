@@ -33,8 +33,7 @@ class File
 	
 	public static function getContent( path : String ) : String
 	{
-		// return Node.fs.readFileSync(path, NodeC.UTF8);
-		return Node.fs.readFileSync(path);
+		return Node.fs.readFileSync(path, "utf8");
 	}
 	
 	// public static function read( path : String, ?binary : Bool ) : FileInput
