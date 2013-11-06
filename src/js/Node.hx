@@ -545,16 +545,13 @@ typedef NodeNetSocket = { > NodeEventEmitter,
 	 Emits:
 	 data,end,close
  */
-typedef NodeHttpServerReq = { >NodeEventEmitter,
+typedef NodeHttpServerReq = { > NodeReadStream,
 	var method:String;
 	var url:String;
 	var headers:Dynamic;
 	var trailers:Dynamic;
 	var httpVersion:String;
 	var connection:NodeNetSocket;
-	function setEncoding(enc:String):Void;
-	function pause():Void;
-	function resume():Void;
 }
 
 /*
@@ -573,23 +570,17 @@ typedef NodeHttpServerResp = { > NodeWriteStream,
 /* Emits:
 	 continue,response
 */
-typedef NodeHttpClientReq = { > NodeEventEmitter,
-	function write(data:Dynamic,?enc:String):Void;
-	function end(?data:Dynamic,?enc:String):Void;
-	function abort():Void;
+typedef NodeHttpClientReq = { > NodeWriteStream,
 }
 
 /* Emits:
 	 data,end,close
 */
-typedef NodeHttpClientResp = { > NodeEventEmitter,
+typedef NodeHttpClientResp = { > NodeReadStream,
 	var statusCode:Int;
 	var httpVersion:String;
 	var headers:Dynamic;
 	var client:NodeHttpClient;
-	function setEncoding(enc:String):Void;
-	function resume():Void;
-	function pause():Void;
 }
 
 
