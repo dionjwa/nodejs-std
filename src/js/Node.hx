@@ -921,6 +921,7 @@ class Node {
 	public static var util(get,null) : NodeUtil;
 	public static var vm(get,null) : NodeVM;
 	public static var json(get,null) : NodeJson;
+	public static var zlib(get,null) : NodeZLib;
 
 
 	//	public static var paths:Array<String>;
@@ -957,6 +958,7 @@ class Node {
 	static inline function get_url() : NodeUrl return require("url");
 	static inline function get_util() : NodeUtil return require("util");
 	static inline function get_vm() : NodeVM return require("vm");
+	static inline function get_zlib() : NodeZLib return require("zlib");
 
 	static inline function get___filename() : String return untyped __js__('__filename');
 	static inline function get___dirname() : String return untyped __js__('__dirname');
