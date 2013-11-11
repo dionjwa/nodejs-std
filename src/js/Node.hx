@@ -118,6 +118,7 @@ typedef NodeQueryString = {
 	function fill(value:Float,offset:Int,?end:Int):Void;
 	static function isBuffer(o:Dynamic):Bool;
 	static function byteLength(s:String,?enc:String):Int;
+	static function concat(list:Array<NodeBuffer>, ?totalLength:Float):NodeBuffer;
 
 	function readUInt8(offset:Int,?noAssert:Bool):Int;
 	function readUInt16LE(offset:Int,?noAssert:Bool):Int;
