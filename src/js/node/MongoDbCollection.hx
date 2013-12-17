@@ -160,7 +160,7 @@ class Collection<Document> {
 
 	private static function __init__() : Void untyped {
     var req = Node.require('mongodb');
-	  Collection = req.Collection;
+	  var Collection = req.Collection;
 	}
 
   public var hint : Dynamic; // ??

@@ -154,8 +154,8 @@ class Db {
 
 	private static function __init__() : Void untyped {
     var req = Node.require('mongodb');
-	  Db = req.Db;
-    connect = req.connect;
+	  var Db = req.Db;
+    var connect = req.connect;
 	}
 
   // from js.Node.NodeEventEmitter
