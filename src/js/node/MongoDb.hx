@@ -39,10 +39,10 @@ class MongoIdHelper {
   }
   
   inline public static function mongoIdStr(db : Db, x : String) : Dynamic return
-    untyped db.bson_serializer.ObjectID(x)
+    untyped db.bson_serializer.ObjectID(x);
   
   inline public static function mongoId<T>(db : Db, x : T) : Dynamic return
-    untyped db.bson_serializer.ObjectID(untyped x._id)
+    untyped db.bson_serializer.ObjectID(untyped x._id);
 }
 
 @:native("Db")
@@ -104,13 +104,13 @@ class Db {
   /**
     Create an index on a collection
   **/
-  @:overload(function (collectionName : String, fieldOrSpec : Dynamic, callBack : Error -> String -> Void) {})
+  @:overload(function (collectionName : String, fieldOrSpec : Dynamic, callBack : Error -> String -> Void) : Void {})
   public function createIndex (collectionName : String, fieldOrSpec : Dynamic, unique : Bool, callBack : Error -> String -> Void) : Void;
 
   /**
     Ensure index, create an index if it does not exist
   **/
-  @:overload(function (collectionName : String, fieldOrSpec : Dynamic, callBack : Error -> String -> Void) {})
+  @:overload(function (collectionName : String, fieldOrSpec : Dynamic, callBack : Error -> String -> Void) : Void {})
   public function ensureIndex (collectionName : String, fieldOrSpec : Dynamic, unique : Bool, callBack : Error -> String -> Void) : Void;
 
   /**
@@ -126,7 +126,7 @@ class Db {
   /**
     Index Information
   **/
-  @:overload(function (callBack : Error -> Dynamic -> Void) {})
+  @:overload(function (callBack : Error -> Dynamic -> Void) : Void {})
   public function indexInformation(collectionName : String, callBack : Error -> Dynamic -> Void) : Void;
 
   /**
