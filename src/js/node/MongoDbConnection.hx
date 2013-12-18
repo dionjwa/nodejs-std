@@ -26,7 +26,7 @@ class Connection {
 	public function new(host : String, port : Int, autoReconnect : Bool):Void;
 
 	private static function __init__() : Void untyped {
-	  Connection = Node.require('mongodb').Connection;
+	  var Connection = Node.require('mongodb').Connection;
 	}
 
   // from js.Node.NodeEventEmitter
@@ -60,7 +60,7 @@ class ServerPair {
   public function setTarget(target : Dynamic) : Void;
 
 	private static function __init__() : Void untyped {
-	  ServerPair = Server.ServerPair; // well behaving solution??
+	  var ServerPair = Server.ServerPair; // well behaving solution??
 	}
 }
 
@@ -78,7 +78,7 @@ class ServerCluster {
   public function setTarget(target : Dynamic) : Void;
 
 	private static function __init__() : Void untyped {
-	  ServerCluster = Server.ServerCluster; // well behaving solution??
+	  var ServerCluster = Server.ServerCluster; // well behaving solution??
 	}
 }
 
@@ -105,7 +105,7 @@ class Server {
 	public function new(host : String, port : Int, options : Dynamic):Void;
 
 	private static function __init__() : Void untyped {
-	  Server = Node.require('mongodb').Server;
+	  var Server = Node.require('mongodb').Server;
 	}
 }
 
