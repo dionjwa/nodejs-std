@@ -369,6 +369,10 @@ typedef NodeFS = {
 
 typedef NodeUtil = {
 	function debug(s:String):Void;
+	function format(s:String)Void; //NON-Variadic method stubs. Variadic varient not supported in Haxe.
+	function error(s:String)Void; //non-variadic variant
+	function puts(s:String)Void; //non-variadic variant
+	function print(s:String)Void; //End the falsely NON-variadic method stubs. One day Haxe may support these. But today is not the day.
 	function inspect(o:Dynamic,?showHidden:Bool,?depth:Int):Void;
 	function log(s:String):Void;
 	function pump(rs:NodeReadStream,ws:NodeWriteStream,cb:Dynamic->Void):Void;
