@@ -1,11 +1,11 @@
 {
   "name": "nodejs",
   "license": "BSD",
-  "tags": ["nodejs","node.js","js"],
+  "tags": ["nodejs","node.js","js", "canvas"],
   "description": "std.io, Http, and sys library for node.js",
   "contributors": ["dionjwa", "fponticelli", "AxGord", "deltaluca", "ncannasse", "sledorze"],
-  "releasenote": "Lazy module loading, updated API, unit test coverage",
-  "version": "2.0.1",
+  "releasenote": "Added node-canvas, mongodb fixes, many other API fixes.",
+  "version": "2.1.0",
   "url": "https://github.com/dionjwa/nodejs-std",
   "dependencies": {
   }

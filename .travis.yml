@@ -12,6 +12,5 @@ before_script:
     - sudo apt-get install haxe -y
     - mkdir -p ~/.haxe/lib
     - haxelib setup ~/.haxe/lib
-    - git clone https://github.com/dionjwa/nodejs-std.git
 
 script: haxe test/travis.hxml
