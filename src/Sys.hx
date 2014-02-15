@@ -36,5 +36,4 @@ class Sys
 	{
 		return Date.now().getTime() / 1000;
 	}
-
 }
