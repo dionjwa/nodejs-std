@@ -1,12 +1,23 @@
 {
-  "name": "nodejs",
-  "license": "BSD",
-  "tags": ["nodejs","node.js","js", "canvas"],
+  "contributors": [
+    "dionjwa",
+    "fponticelli",
+    "AxGord",
+    "deltaluca",
+    "ncannasse",
+    "sledorze"
+  ],
+  "dependencies": {},
   "description": "std.io, Http, and sys library for node.js",
-  "contributors": ["dionjwa", "fponticelli", "AxGord", "deltaluca", "ncannasse", "sledorze"],
+  "license": "BSD",
+  "name": "nodejs",
   "releasenote": "Added node-canvas, mongodb fixes, many other API fixes.",
-  "version": "2.1.0",
+  "tags": [
+    "nodejs",
+    "node.js",
+    "js",
+    "canvas"
+  ],
   "url": "https://github.com/dionjwa/nodejs-std",
-  "dependencies": {
-  }
+  "version": "2.1.0"
 }
