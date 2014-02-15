@@ -118,6 +118,7 @@ typedef NodeQueryString = {
 	function fill(value:Float,offset:Int,?end:Int):Void;
 	static function isBuffer(o:Dynamic):Bool;
 	static function byteLength(s:String,?enc:String):Int;
+	static function concat(list:Array<NodeBuffer>, ?totalLength:Float):NodeBuffer;
 
 	function readUInt8(offset:Int,?noAssert:Bool):Int;
 	function readUInt16LE(offset:Int,?noAssert:Bool):Int;
@@ -545,16 +546,13 @@ typedef NodeNetSocket = { > NodeEventEmitter,
 	 Emits:
 	 data,end,close
  */
-typedef NodeHttpServerReq = { >NodeEventEmitter,
+typedef NodeHttpServerReq = { > NodeReadStream,
 	var method:String;
 	var url:String;
 	var headers:Dynamic;
 	var trailers:Dynamic;
 	var httpVersion:String;
 	var connection:NodeNetSocket;
-	function setEncoding(enc:String):Void;
-	function pause():Void;
-	function resume():Void;
 }
 
 /*
@@ -573,23 +571,17 @@ typedef NodeHttpServerResp = { > NodeWriteStream,
 /* Emits:
 	 continue,response
 */
-typedef NodeHttpClientReq = { > NodeEventEmitter,
-	function write(data:Dynamic,?enc:String):Void;
-	function end(?data:Dynamic,?enc:String):Void;
-	function abort():Void;
+typedef NodeHttpClientReq = { > NodeWriteStream,
 }
 
 /* Emits:
 	 data,end,close
 */
-typedef NodeHttpClientResp = { > NodeEventEmitter,
+typedef NodeHttpClientResp = { > NodeReadStream,
 	var statusCode:Int;
 	var httpVersion:String;
 	var headers:Dynamic;
 	var client:NodeHttpClient;
-	function setEncoding(enc:String):Void;
-	function resume():Void;
-	function pause():Void;
 }
 
 
@@ -930,6 +922,7 @@ class Node {
 	public static var util(get,null) : NodeUtil;
 	public static var vm(get,null) : NodeVM;
 	public static var json(get,null) : NodeJson;
+	public static var zlib(get,null) : NodeZLib;
 
 
 	//	public static var paths:Array<String>;
@@ -966,6 +959,7 @@ class Node {
 	static inline function get_url() : NodeUrl return require("url");
 	static inline function get_util() : NodeUtil return require("util");
 	static inline function get_vm() : NodeVM return require("vm");
+	static inline function get_zlib() : NodeZLib return require("zlib");
 
 	static inline function get___filename() : String return untyped __js__('__filename');
 	static inline function get___dirname() : String return untyped __js__('__dirname');

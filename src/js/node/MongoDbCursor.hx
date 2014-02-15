@@ -19,7 +19,7 @@ class Cursor<Document> {
 
 	private static function __init__() : Void untyped {
     var req = Node.require('mongodb');
-	  Cursor = req.Cursor;
+	  var Cursor = req.Cursor;
 	}
 
   public var db : Db;
