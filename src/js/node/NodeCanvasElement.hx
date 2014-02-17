@@ -14,6 +14,7 @@ extern class NodeCanvasElement
 	public function new(width :Int, height :Int) : Void;
 
 	public function createPNGStream() :NodeWriteStream;
+	public function toBuffer() :NodeBuffer;
 
 	private static function __init__() : Void untyped
 	{
