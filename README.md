@@ -8,6 +8,8 @@
 
 This library contains all you need to use haxe plus the std libary with node.js.
 
+Starting with the git tag v0.10.25 and the branch node_pre0.10.25, when there are breaking API changes in Node.js then a new branch will be created here.  The master branch will match follow the most current version of Node.js.
+
 ### History
 
 Alternative to the [nodejs haxelib](http://lib.haxe.org/p/nodejs) library, forked due to a lack of maintenance form the other library.
