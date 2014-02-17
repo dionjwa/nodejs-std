@@ -268,6 +268,11 @@ typedef NodeFSWatcher = { > NodeEventEmitter,
 	 function close():Void;
 }
 
+typedef NodeFsFileOptions = {
+	@:optional var encoding :String;
+	@:optional var flag :String;
+}
+
 typedef NodeFS = {
 	function rename(from:String,to:String,cb:NodeErr->Void):Void;
 	function renameSync(from:String,to:String):Void;
@@ -333,8 +338,9 @@ typedef NodeFS = {
 	function truncate(fd:Int,len:Int,cb:NodeErr->Void):Void;
 	function truncateSync(fd:Int,len:Int):NodeErr;
 
-	function readFile(path:String,?enc:String,cb:NodeErr->String->Void):Void;
-	function readFileSync(path:String,?enc:String):String;
+	@:overload(function(path:String,cb:NodeErr->String->Void):Void {})
+	function readFile(path:String,?options:NodeFsFileOptions,cb:NodeErr->Dynamic->Void):Void;
+	function readFileSync(path:String,?options:NodeFsFileOptions):Dynamic;
 
 	@:overload(function(fileName:String,data:NodeBuffer,cb:NodeErr->Void):Void {})
 	function writeFile(fileName:String,contents:String,?enc:String,cb:NodeErr->Void):Void;
