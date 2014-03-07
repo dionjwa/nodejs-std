@@ -34,6 +34,6 @@ class Sys
 	**/
 	public static function time () :Float
 	{
-		return Date.now().getTime() / 1000;
+		return untyped __js__('Date.now() / 1000');
 	}
 }
