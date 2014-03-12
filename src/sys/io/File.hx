@@ -16,16 +16,24 @@ class File
 		Node.fs.writeFileSync(dst, content);
 	}
 	
-	// public static function getBytes( path : String ) : Bytes
-	// {
-	// 	throw "Not implemented";
-	// 	return null;
-	// }
+	public static function getBytes( path : String ) : haxe.io.Bytes
+	{
+		var o = Node.fs.openSync(path, "r");
+		var s = Node.fs.fstatSync(o);
+		var len = s.size, pos = 0;
+		var bytes = haxe.io.Bytes.alloc(s.size);
+		while( len > 0 ) {
+			var r = Node.fs.readSync(o, bytes.getData(), pos, len, null);
+			pos += r;
+			len -= r;
+		}
+		Node.fs.closeSync(o);
+		return bytes;
+	}
 	
 	public static function getContent( path : String ) : String
 	{
-		// return Node.fs.readFileSync(path, NodeC.UTF8);
-		return Node.fs.readFileSync(path);
+		return Node.fs.readFileSync(path, "utf8");
 	}
 	
 	// public static function read( path : String, ?binary : Bool ) : FileInput
