@@ -33,7 +33,7 @@ class File
 	
 	public static function getContent( path : String ) : String
 	{
-		return Node.fs.readFileSync(path, "utf8");
+		return Node.fs.readFileSync(path, UTF8_ENCODING);
 	}
 	
 	// public static function read( path : String, ?binary : Bool ) : FileInput
@@ -59,4 +59,5 @@ class File
 		return null;
 	}
 	
+	private static var UTF8_ENCODING = {encoding:NodeC.UTF8};
 }
