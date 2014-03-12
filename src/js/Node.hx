@@ -429,7 +429,7 @@ typedef NodeChildProcess = { > NodeEventEmitter,
 	var stdout:NodeReadStream;
 	var stderr:NodeReadStream;
 	var pid:Int;
-	function kill(signal:String):Void;
+	function kill(?signal:String):Void;
 }
 
 /*
