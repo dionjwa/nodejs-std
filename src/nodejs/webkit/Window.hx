@@ -30,6 +30,7 @@ extern class Window {
 	public function leavFullscreen() : Void;
 	public function showDevTools( ?id : String, ?headless : Bool ) : Void;
 	public function closeDevTools() : Void;
+	public function toggleFullscreen() : Void;
 	
 	@:overload(function( event : String, callb : Dynamic -> Dynamic ) : Void {})
 	@:overload(function( event : String, callb : Void -> Dynamic ) : Void {})

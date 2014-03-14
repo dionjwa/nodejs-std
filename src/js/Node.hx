@@ -31,6 +31,7 @@ typedef NodeEventEmitter = {
 }
 
 typedef NodeWatchOpt = {
+	@:optional
 	var persistent:Bool;
 	@:optional
 	var interval:Int;
