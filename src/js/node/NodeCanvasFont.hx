@@ -10,6 +10,8 @@ extern class NodeCanvasFont
 
 	private static function __init__() : Void untyped
 	{
-		var Font = Node.require('canvas').Font;
+		try {
+			var Font = Node.require('canvas').Font;
+		} catch (e :Dynamic) {}
 	}
 }

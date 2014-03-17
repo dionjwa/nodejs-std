@@ -12,7 +12,9 @@ extern class NodeCanvasImage
 
 	private static function __init__() : Void untyped
 	{
-		var Image = Node.require('canvas').Image;
+		try {
+			var Image = Node.require('canvas').Image;
+		} catch (e :Dynamic) {}
 	}
 
 }

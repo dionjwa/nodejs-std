@@ -18,7 +18,9 @@ extern class NodeCanvasElement
 
 	private static function __init__() : Void untyped
 	{
-		var Canvas = Node.require('canvas');
+		try {
+			var Canvas = Node.require('canvas');
+		} catch (e :Dynamic) {}
 	}
 
 }
