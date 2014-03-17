@@ -978,7 +978,6 @@ class Node {
 	#if !macro
 	public static function __init__()
 	{
-		untyped __js__("var module, setImmediate, clearImmediate");
 		setTimeout = untyped __js__('setTimeout');
 		clearTimeout = untyped __js__('clearTimeout');
 		setInterval = untyped __js__('setInterval');

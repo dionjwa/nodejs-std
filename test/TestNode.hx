@@ -24,6 +24,17 @@ class TestNode extends haxe.unit.TestCase
 
 		//cluster
 		assertTrue(Node.cluster.fork != null);
+
+		//globals
+		assertTrue(Node.setTimeout != null);
+		assertTrue(Node.clearTimeout != null);
+		assertTrue(Node.setInterval != null);
+		// Not present in Node < 0.9
+		var version = Node.process.version.substr(1).split(".").map(Std.parseInt);
+		if (version[0] > 0 || version[1] >= 9) {
+			assertTrue(Node.setImmediate != null);
+			assertTrue(Node.clearImmediate != null);
+		}
 	}
 
 	public function testJson()
