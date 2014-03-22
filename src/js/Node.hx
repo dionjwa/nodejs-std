@@ -73,6 +73,7 @@ typedef NodePath = {
 	function dirname(p:String):String;
 	function basename(p:String,?ext:String):String;
 	function extname(p:String):String;
+	function relative(?p1:String,?p2:String,?p3:String):String;
 	var sep :String;
 	var delimiter :String;
 }
