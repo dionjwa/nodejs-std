@@ -36,6 +36,7 @@ typedef SocketIoManager = {
 	var store(default, null) : Dynamic;
 	var log(default, null) : Dynamic;
 	@:native("static") var static_(default, null) : Dynamic;
+	var sockets : SocketNamespace;
 
 	function get(key : Dynamic) : Dynamic;
 	function set(key : Dynamic, value : Dynamic) : SocketIoManager;
