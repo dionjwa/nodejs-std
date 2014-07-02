@@ -158,7 +158,7 @@ class Bytes {
 		#end
 	}
 
-	public function readString( pos : Int, len : Int ) : String {
+	public function getString( pos : Int, len : Int ) : String {
 		#if !neko
 		if( pos < 0 || len < 0 || pos + len > length ) throw Error.OutsideBounds;
 		#end
@@ -204,6 +204,12 @@ class Bytes {
 		#end
 	}
 
+	@:deprecated("readString is deprecated, use getString instead")
+	@:noCompletion
+	public inline function readString(pos:Int, len:Int):String {
+		return getString(pos, len);
+	}
+
 	public function toString() : String {
 		#if neko
 		return new String(untyped __dollar__ssub(b,0,length));
@@ -215,7 +221,7 @@ class Bytes {
 		return cast b;
 //		return untyped __call__("call_user_func_array", "pack", __call__("array_merge", __call__("array", "C*"), b.»a));
 		#else
-		return readString(0,length);
+		return getString(0,length);
 		#end
 	}
 	
