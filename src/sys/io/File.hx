@@ -59,5 +59,5 @@ class File
 		return null;
 	}
 	
-	private static var UTF8_ENCODING = {encoding:NodeC.UTF8};
+	static var UTF8_ENCODING = {encoding:NodeC.UTF8};
 }

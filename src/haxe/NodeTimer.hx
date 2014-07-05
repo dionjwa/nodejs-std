@@ -31,7 +31,7 @@ class NodeTimer {
 	private var id : Null<Int>;
 
 	#if js
-	private static var arr = new Array<Timer>();
+	static var arr = new Array<Timer>();
 	private var timerId : Int;
   #if (nodejs || nodejs_std)
   private var interval:Int;

@@ -31,6 +31,7 @@ typedef NodeEventEmitter = {
 }
 
 typedef NodeWatchOpt = {
+	@:optional
 	var persistent:Bool;
 	@:optional
 	var interval:Int;
@@ -68,10 +69,11 @@ typedef NodeConsole = {
 typedef NodePath = {
 	function join(?p1:String,?p2:String,?p3:String):String;
 	function normalize(p:String):String;
-	function resolve(?from:Array<String>,to:String):String;
+	function resolve(?p1:String,?p2:String,?p3:String):String;
 	function dirname(p:String):String;
 	function basename(p:String,?ext:String):String;
 	function extname(p:String):String;
+	function relative(?p1:String,?p2:String,?p3:String):String;
 	var sep :String;
 	var delimiter :String;
 }
@@ -429,7 +431,7 @@ typedef NodeChildProcess = { > NodeEventEmitter,
 	var stdout:NodeReadStream;
 	var stderr:NodeReadStream;
 	var pid:Int;
-	function kill(signal:String):Void;
+	function kill(?signal:String):Void;
 }
 
 /*
