@@ -1,6 +1,6 @@
 package nodejs.webkit;
 
-@:fakeEnum
+@:enum
 abstract MenuItemType(String) {
 	var separator = "separator";
 	var checkbox = "checkbox";
