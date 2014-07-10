@@ -909,7 +909,7 @@ class Node {
 	public static var assert(get,null) : NodeAssert;
 	public static var child_process(get,null) : NodeChildProcessCommands;
 	public static var cluster(get,null) : NodeCluster;
-	public static var console(default,null) : NodeConsole;
+	public static var console(default,null) : NodeConsole = untyped __js__('console');
 	public static var crypto(get,null) : NodeCrypto;
 	public static var dgram(get,null) :NodeUDP ;
 	public static var dns(get,null) : NodeDns;
@@ -919,10 +919,10 @@ class Node {
 	public static var net(get,null) : NodeNet;
 	public static var os(get,null) : NodeOs;
 	public static var path(get,null) : NodePath;
-	public static var process(default,null) : NodeProcess;
+	public static var process(default,null) : NodeProcess = untyped __js__('process');
 	public static var querystring(get,null) : NodeQueryString;
 	public static var repl(get,null) : NodeREPL;
-	public static var require(default,null) : String->Dynamic;
+	public static var require(default,null) : String->Dynamic = untyped __js__('require');
 	public static var tls(get,null) : NodeTLS;
 	public static var url(get,null) : NodeUrl;
 	public static var util(get,null) : NodeUtil;
@@ -932,19 +932,25 @@ class Node {
 
 
 	//	public static var paths:Array<String>;
-	public static var setTimeout:Dynamic->Int->?Array<Dynamic>->Int;
-	public static var clearTimeout:Int->Void;
-	public static var setInterval:Dynamic->Int->?Array<Dynamic>->Int;
-	public static var clearInterval:Int->Void;
-	public static var setImmediate:Dynamic->?Array<Dynamic>->Int;
-	public static var clearImmediate:Int->Void;
-	public static var global:Dynamic;
+	public static var setTimeout:Dynamic->Int->?Array<Dynamic>->Int = untyped __js__('setTimeout');
+	public static var clearTimeout:Int->Void = untyped __js__('clearTimeout');
+	public static var setInterval:Dynamic->Int->?Array<Dynamic>->Int = untyped __js__('setInterval');
+	public static var clearInterval:Int->Void = untyped __js__('clearInterval');
+	public static var setImmediate:Dynamic->?Array<Dynamic>->Int = {
+		var version = process.version.substr(1).split(".").map(Std.parseInt);
+		(version[0] > 0 || version[1] >= 9) ? untyped __js__('setImmediate') : null;
+	}
+	public static var clearImmediate:Int->Void = {
+		var version = process.version.substr(1).split(".").map(Std.parseInt);
+		(version[0] > 0 || version[1] >= 9) ? untyped __js__('clearImmediate') : null;
+	}
+	public static var global:Dynamic = untyped __js__('global');
 
 	public static var __filename(get, null):String;
 	public static var __dirname(get, null):String;
-	public static var module:Dynamic;
-	public static var stringify:Dynamic->?Dynamic->?Dynamic->String;
-	public static var parse:String->Dynamic;
+	public static var module:Dynamic = untyped __js__('module'); // ref to the current module
+	public static var stringify:Dynamic->?Dynamic->?Dynamic->String = untyped __js__('JSON.stringify');
+	public static var parse:String->Dynamic = untyped __js__('JSON.parse');
 	public static var queryString:NodeQueryString;
 
 	static inline function get_assert() : NodeAssert return require("assert");
@@ -974,29 +980,6 @@ class Node {
 	public static function newSocket(?options):NodeNetSocket {
 		return untyped __js__("new js.Node.net.Socket(options)");
 	}
-
-	#if !macro
-	public static function __init__()
-	{
-		setTimeout = untyped __js__('setTimeout');
-		clearTimeout = untyped __js__('clearTimeout');
-		setInterval = untyped __js__('setInterval');
-		clearInterval = untyped __js__('clearInterval');
-		global = untyped __js__('global');
-		process = untyped __js__('process');
-		require = untyped __js__('require');
-		console = untyped __js__('console');
-		module = untyped __js__('module');	// ref to the current module
-		stringify = untyped __js__('JSON.stringify');
-		parse = untyped __js__('JSON.parse');
-		// Not present in Node < 0.9
-		var version = process.version.substr(1).split(".").map(Std.parseInt);
-		if (version[0] > 0 || version[1] >= 9) {
-			setImmediate = untyped __js__('setImmediate');
-			clearImmediate = untyped __js__('clearImmediate');
-		}
-	}
-	#end
 }
 
 
