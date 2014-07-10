@@ -851,12 +851,6 @@ typedef NodeJson = {
 	function parse(text :String) :Dynamic;
 }
 
-@:native("Error")
-extern class Error
-{
-	public function new(msg : String) : Void;
-}
-
 // Node Constants
 class NodeC {
 	public static inline var UTF8 = "utf8";
