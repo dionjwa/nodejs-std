@@ -11,7 +11,7 @@
   "description": "std.io, Http, and sys library for node.js",
   "license": "BSD",
   "name": "nodejs",
-  "releasenote": "Additions for nodejs webkit (very alpha).",
+  "releasenote": "Minor update. commit: 9351cdd4e",
   "tags": [
     "nodejs",
     "node.js",
@@ -19,5 +19,5 @@
     "canvas"
   ],
   "url": "https://github.com/dionjwa/nodejs-std",
-  "version": "2.2.5"
+  "version": "2.2.6"
 }
