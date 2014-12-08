@@ -972,7 +972,8 @@ class Node {
 	static inline function get_json() : NodeJson return untyped __js__('JSON');
 
 	public static function newSocket(?options):NodeNetSocket {
-		return untyped __js__("new js.Node.net.Socket(options)");
+		var net = js.Node.net;
+		return untyped __js__("new net.Socket(options)");
 	}
 }
 
