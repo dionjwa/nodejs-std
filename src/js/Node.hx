@@ -485,7 +485,8 @@ typedef NodeNet = { > NodeEventEmitter,
 	function createServer(?options:{allowHalfOpen:Bool},fn:NodeNetSocket->Void):NodeNetServer;
 	@:overload(function(cs:String):NodeNetSocket {})
 	function createConnection(port:Int,host:String):NodeNetSocket;
-	@:overload(function(cs:String):NodeNetSocket {})
+	@:overload(function(cs:String):NodeNetSocket { } )
+	@:overload(function(port:Int, host:String, cb:Void->Void):NodeNetSocket {} )
 	function connect(port:Int,host:String):NodeNetSocket;
 	function isIP(input:String):Int; // 4 or 6
 	function isIPv4(input:String):Bool;
@@ -930,19 +931,23 @@ class Node {
 	public static var clearTimeout:Int->Void = untyped __js__('clearTimeout');
 	public static var setInterval:Dynamic->Int->?Array<Dynamic>->Int = untyped __js__('setInterval');
 	public static var clearInterval:Int->Void = untyped __js__('clearInterval');
-	public static var setImmediate:Dynamic->?Array<Dynamic>->Int = {
-		var version = process.version.substr(1).split(".").map(Std.parseInt);
-		(version[0] > 0 || version[1] >= 9) ? untyped __js__('setImmediate') : null;
+	public static var setImmediate:Dynamic->?Array<Dynamic>->Int = {		
+		var version = process.version.substr(1).split(".").map(Std.parseInt);		
+		(version[0] > 0 || version[1] >= 9) ? 
+			{ isNodeWebkit() ? untyped __js__('global.setImmediate') : untyped __js__('setImmediate'); } :
+			null;
 	}
 	public static var clearImmediate:Int->Void = {
 		var version = process.version.substr(1).split(".").map(Std.parseInt);
-		(version[0] > 0 || version[1] >= 9) ? untyped __js__('clearImmediate') : null;
+		(version[0] > 0 || version[1] >= 9) ? 
+			{ isNodeWebkit() ? untyped __js__('global.clearImmediate') : untyped __js__('clearImmediate'); } :
+			null;
 	}
 	public static var global:Dynamic = untyped __js__('global');
 
 	public static var __filename(get, null):String;
 	public static var __dirname(get, null):String;
-	public static var module:Dynamic = untyped __js__('module'); // ref to the current module
+	public static var module:Dynamic = isNodeWebkit() ? untyped __js__('global.module') : untyped __js__('module'); // ref to the current module
 	public static var stringify:Dynamic->?Dynamic->?Dynamic->String = untyped __js__('JSON.stringify');
 	public static var parse:String->Dynamic = untyped __js__('JSON.parse');
 	public static var queryString:NodeQueryString;
@@ -974,6 +979,8 @@ class Node {
 	public static function newSocket(?options):NodeNetSocket {
 		return untyped __js__("new js.Node.net.Socket(options)");
 	}
+	
+	public static function isNodeWebkit():Bool return untyped __js__('(typeof process == "object")');
 }
 
 
