@@ -947,7 +947,7 @@ class Node {
 
 	public static var __filename(get, null):String;
 	public static var __dirname(get, null):String;
-	public static var module:Dynamic = isNodeWebkit() ? untyped __js__('process.mainModule') : untyped __js__('module'); // ref to the current module
+	public static var module:Dynamic = isNodeWebkit() ? untyped __js__('global.module') : untyped __js__('module'); // ref to the current module
 	public static var stringify:Dynamic->?Dynamic->?Dynamic->String = untyped __js__('JSON.stringify');
 	public static var parse:String->Dynamic = untyped __js__('JSON.parse');
 	public static var queryString:NodeQueryString;
