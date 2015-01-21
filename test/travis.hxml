@@ -1,6 +1,5 @@
 -debug
 -D nodejs
--cp src
 -cp test
 -js test/test.js
 --remap sys:sys
