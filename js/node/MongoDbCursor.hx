@@ -18,8 +18,7 @@ class Cursor<Document> {
   public function new(db : Db, collection : Collection<Document>, selector : Dynamic, fields : Dynamic, skip : Int, limit : Int, sort : Dynamic, hint : Dynamic, explain : Bool, snapshot : Bool, timeout : Int, tailable : Bool, batchSize : Int):Void;
 
 	private static function __init__() : Void untyped {
-    var req = Node.require('mongodb');
-	  var Cursor = req.Cursor;
+    var Cursor = untyped __js__("require('mongodb').Cursor");
 	}
 
   public var db : Db;

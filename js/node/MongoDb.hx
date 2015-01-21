@@ -153,9 +153,8 @@ class Db {
 	public function new(databaseName : String, serverConfig : Server, options : Dynamic):Void;
 
 	private static function __init__() : Void untyped {
-    var req = Node.require('mongodb');
-	  var Db = req.Db;
-    var connect = req.connect;
+	  var Db = untyped __js__("require('mongodb').Db");
+    var connect = untyped __js__("require('mongodb').connect");
 	}
 
   // from js.Node.NodeEventEmitter

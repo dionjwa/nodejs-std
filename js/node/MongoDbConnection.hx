@@ -26,7 +26,7 @@ class Connection {
 	public function new(host : String, port : Int, autoReconnect : Bool):Void;
 
 	private static function __init__() : Void untyped {
-	  var Connection = Node.require('mongodb').Connection;
+    var Connection = untyped __js__("require('mongodb').Connection");
 	}
 
   // from js.Node.NodeEventEmitter
@@ -105,7 +105,7 @@ class Server {
 	public function new(host : String, port : Int, options : Dynamic):Void;
 
 	private static function __init__() : Void untyped {
-	  var Server = Node.require('mongodb').Server;
+    var Server = untyped __js__("require('mongodb').Server");
 	}
 }
 

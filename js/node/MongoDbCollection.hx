@@ -159,8 +159,7 @@ class Collection<Document> {
   public function new(db : Db, collectionName : String, pkFactory : Dynamic):Void; // ??
 
 	private static function __init__() : Void untyped {
-    var req = Node.require('mongodb');
-	  var Collection = req.Collection;
+    var Collection = untyped __js__("require('mongodb').Collection");
 	}
 
   public var hint : Dynamic; // ??
