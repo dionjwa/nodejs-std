@@ -29,6 +29,14 @@ import js.Node;
 class Http {
 	public var url : String;
 	public var async : Bool;
+
+	public var responseData(default, null) : Null<String>;
+	#if haxe3
+	public var responseHeaders = new Map<String, String>();
+	#else
+	public var responseHeaders : Hash<String>;
+	#end
+
 	var postData : String;
 	#if haxe3
 	var headers : Map<String, String>;
@@ -48,6 +56,7 @@ class Http {
 		headers = new Map();
 		params = new Map();
 		#else
+		responseHeaders = new Hash();
 		headers = new Hash();
 		params = new Hash();
 		#end
@@ -131,7 +140,10 @@ class Http {
 			service = Node.http;
 
 		var request : NodeHttpClientReq = service.request(options, function(response :NodeHttpClientResp) {
-			var responseData = '';
+			responseData = '';
+			for (name in Reflect.fields(response.headers)) {
+				responseHeaders.set(name, Reflect.field(response.headers, name));
+			}
 			response.setEncoding('utf8');
 			var s = try response.statusCode catch( e : Dynamic ) 0;
 				
