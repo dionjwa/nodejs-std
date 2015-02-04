@@ -179,27 +179,40 @@ class Http {
 				}
 			}
 
+			var chunks = [];
+			var finalise;
+
 			switch (encoding) {
 				case BINARY:
 				response.on('data', function(chunk : haxe.io.BytesData) {
-					responseData.add(haxe.io.Bytes.ofData(chunk));
+					chunks.push(chunk);
 				});
+				finalise = function(){
+					var data = haxe.io.BytesData.concat(chunks);
+					var bytes = haxe.io.Bytes.ofData(data);
+					responseData.add(bytes);
+				};
 
 				case UTF8:
 				response.on('data', function(chunk : String) {
 					responseData += chunk;
 				});
+				finalise = function(){};
 			}
 			
 			response.once('end', function() {
 				response.removeAllListeners("data");
 				response.removeAllListeners("end");
+
+				finalise();
 				
 				if (responseData != null) {
 					onData(responseData);
 				}
 			});
 			response.once('close', function() {
+				finalise();
+				
 				if (responseData != null) {
 					onData(responseData);
 				}
