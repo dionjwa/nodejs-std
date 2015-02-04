@@ -42,11 +42,10 @@ class File
 	// 	return null;
 	// }
 	
-	// public static function saveBytes( path : String, bytes : Bytes ) : Void
-	// {
-	// 	throw "Not implemented";
-	// 	return null;
-	// }
+	public static function saveBytes( path : String, bytes : haxe.io.Bytes ) : Void
+	{
+		Node.fs.writeFileSync(path, bytes.getData());
+	}
 	
 	public static function saveContent( path : String, content : String ) : Void
 	{
