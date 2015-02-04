@@ -154,7 +154,7 @@ class Http {
 			}
 			switch (encoding) {
 				case BINARY:
-				responseData = new haxe.io.BytesBuffer();
+				responseData = null;
 
 				case UTF8:
 				responseData = '';
@@ -189,8 +189,7 @@ class Http {
 				});
 				finalise = function(){
 					var data = haxe.io.BytesData.concat(chunks);
-					var bytes = haxe.io.Bytes.ofData(data);
-					responseData.add(bytes);
+					responseData = haxe.io.Bytes.ofData(data);
 				};
 
 				case UTF8:
