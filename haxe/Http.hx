@@ -29,8 +29,9 @@ import js.Node;
 class Http {
 	public var url : String;
 	public var async : Bool;
+	public var encoding : HttpEncoding = UTF8;
 
-	public var responseData(default, null) : Null<String>;
+	public var responseData(default, null) : Dynamic;
 	#if haxe3
 	public var responseHeaders = new Map<String, String>();
 	#else
@@ -120,6 +121,14 @@ class Http {
 		
 		options.method = post ? 'POST' : 'GET';
 		
+		switch (encoding) {
+			case BINARY:
+			options.encoding = null;
+
+			case UTF8:
+			options.encoding = 'utf8';
+		}
+
 		if( headers.get("Content-Type") == null && post && postData == null ) {
 			headers.set("Content-Type", "application/x-www-form-urlencoded");
 		}
@@ -140,11 +149,16 @@ class Http {
 			service = Node.http;
 
 		var request : NodeHttpClientReq = service.request(options, function(response :NodeHttpClientResp) {
-			responseData = '';
 			for (name in Reflect.fields(response.headers)) {
 				responseHeaders.set(name, Reflect.field(response.headers, name));
 			}
-			response.setEncoding('utf8');
+			switch (encoding) {
+				case BINARY:
+				responseData = new haxe.io.BytesBuffer();
+
+				case UTF8:
+				responseData = '';
+			}
 			var s = try response.statusCode catch( e : Dynamic ) 0;
 				
 			if( response.statusCode != null ) {
@@ -164,10 +178,18 @@ class Http {
 						me.onError("Http Error #"+response.statusCode);
 				}
 			}
-				
-			response.on('data', function(chunk :String) {
-				responseData += chunk;
-			});
+
+			switch (encoding) {
+				case BINARY:
+				response.on('data', function(chunk : haxe.io.BytesData) {
+					responseData.add(haxe.io.Bytes.ofData(chunk));
+				});
+
+				case UTF8:
+				response.on('data', function(chunk : String) {
+					responseData += chunk;
+				});
+			}
 			
 			response.once('end', function() {
 				response.removeAllListeners("data");
@@ -195,7 +217,7 @@ class Http {
 		request.end();
 	}
 
-	public dynamic function onData( data : String ) {
+	public dynamic function onData( data : Dynamic ) {
 	}
 
 	public dynamic function onError( msg : String ) {
