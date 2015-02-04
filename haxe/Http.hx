@@ -176,13 +176,11 @@ class Http {
 				if (responseData != null) {
 					onData(responseData);
 				}
-				responseData = null;
 			});
 			response.once('close', function() {
 				if (responseData != null) {
 					onData(responseData);
 				}
-				responseData = null;
 			});
 			
 			response.once('error', function(error :Dynamic) {
