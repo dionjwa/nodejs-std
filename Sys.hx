@@ -11,22 +11,22 @@ class Sys
 {
 	public static function args () :Array<String>
 	{
-		return Node.process.argv;
+		return untyped process.argv;
 	}
 
 	public static function getEnv (key :String) :String
 	{
-		return Reflect.field(Node.process.env, key);
+		return Reflect.field(untyped process.env, key);
 	}
 
 	public static function environment () : haxe.ds.StringMap<String>
 	{
-		return Node.process.env;
+		return untyped process.env;
 	}
 
 	public static function exit (code :Int) :Void
 	{
-		Node.process.exit(code);
+		untyped process.exit(code);
 	}
 
 	/**
