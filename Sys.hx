@@ -36,4 +36,28 @@ class Sys
 	{
 		return untyped __js__('Date.now() / 1000');
 	}
+	
+	public static function systemName() : String {
+		switch(untyped process.platform)
+		{
+		case "darwin": return "Darwin";
+		case "freebsd": return "BSD";
+		case "linux": return "Linux";
+		case "sunos": return "SunOS";
+		case "win32": return "Windows";
+		default: return "";
+		}
+	}
+	
+	public static function println(v:Dynamic) : Void {
+		untyped console.log(v);
+	}
+	
+	public static function executablePath() : String {
+		return untyped process.execPath;
+	}
+	
+	public static function setCwd(s:String) : Void {
+		untyped process.chdir(s);
+	}
 }
