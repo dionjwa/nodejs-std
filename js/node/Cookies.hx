@@ -1,5 +1,7 @@
 package js.node;
 
+import js.Node;
+
 //Cookies
 //https://www.npmjs.com/package/cookies
 @:native("Cookies")
