@@ -611,11 +611,18 @@ typedef NodeHttpServer = { > NodeEventEmitter,
 /*
  */
 typedef NodeHttpReqOpt = {
-	var host:String;
-	var port:Int;
-	var path:String;
-	var method:String;
-	var headers:Dynamic;
+	@:optional var host:String;
+	@:optional var hostName:String;
+	@:optional var port:Int;
+	@:optional var localAddress:String;
+	@:optional var socketPath:String;
+	@:optional var path:String;
+	@:optional var method:String;
+	@:optional var headers:Dynamic;
+	@:optional var auth:String;
+	@:optional var agent:Dynamic;
+	@:optional var keepAlive:Bool;
+	@:optional var keepAliveMsecs:Int;
 }
 
 typedef NodeHttpsReqOpt = { > NodeHttpReqOpt,
