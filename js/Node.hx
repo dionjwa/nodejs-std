@@ -589,6 +589,9 @@ typedef NodeHttpServerResp = { > NodeWriteStream,
 	 continue,response
 */
 typedef NodeHttpClientReq = { > NodeWriteStream,
+	function setHeader(name:String,value:Dynamic):Void;
+	function getHeader(name:String):Dynamic;
+	function removeHeader(name:String):Void;
 }
 
 /* Emits:
@@ -653,10 +656,10 @@ typedef NodeAgent = { > NodeEventEmitter,
 typedef NodeHttp = {
 	function createServer(listener:NodeHttpServerReq->NodeHttpServerResp->Void):NodeHttpServer;
 	function createClient(port:Int,host:String):NodeHttpClient;
-	@:overload(function(parsedUrl:NodeUrlObj,res:NodeHttpClientResp->Void):NodeHttpClientReq {})
-	function request(options:NodeHttpReqOpt,res:NodeHttpClientResp->Void):NodeHttpClientReq;
-	@:overload(function(parsedUrl:NodeUrlObj,res:NodeHttpClientResp->Void):Void {})
-	function get(options:NodeHttpReqOpt,res:NodeHttpClientResp->Void):Void;
+	@:overload(function(parsedUrl:NodeUrlObj,?res:NodeHttpClientResp->Void):NodeHttpClientReq {})
+	function request(options:NodeHttpReqOpt,?res:NodeHttpClientResp->Void):NodeHttpClientReq;
+	@:overload(function(parsedUrl:NodeUrlObj,?res:NodeHttpClientResp->Void):NodeHttpClientReq {})
+	function get(options:NodeHttpReqOpt,?res:NodeHttpClientResp->Void):NodeHttpClientReq;
 	function getAgent(host:String,port:Int):NodeAgent;
 }
 
