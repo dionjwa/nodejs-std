@@ -77,15 +77,25 @@ typedef NodePath = {
 }
 
 typedef NodeUrlObj = {
+	@:optional
 	var href:String;
+	@:optional
 	var host:String;
+	@:optional
 	var protocol:String;
+	@:optional
 	var auth:String;
+	@:optional
 	var hostname:String;
+	@:optional
 	var port:String;
+	@:optional
 	var pathname:String;
+	@:optional
 	var search:String;
+	@:optional
 	var query:Dynamic;
+	@:optional
 	var hash:String;
 }
 
@@ -938,15 +948,15 @@ class Node {
 	public static var clearTimeout:Int->Void = untyped __js__('clearTimeout');
 	public static var setInterval:Dynamic->Int->?Array<Dynamic>->Int = untyped __js__('setInterval');
 	public static var clearInterval:Int->Void = untyped __js__('clearInterval');
-	public static var setImmediate:Dynamic->?Array<Dynamic>->Int = {		
-		var version = process.version.substr(1).split(".").map(Std.parseInt);		
-		(version[0] > 0 || version[1] >= 9) ? 
+	public static var setImmediate:Dynamic->?Array<Dynamic>->Int = {
+		var version = process.version.substr(1).split(".").map(Std.parseInt);
+		(version[0] > 0 || version[1] >= 9) ?
 			{ isNodeWebkit() ? untyped __js__('global.setImmediate') : untyped __js__('setImmediate'); } :
 			null;
 	}
 	public static var clearImmediate:Int->Void = {
 		var version = process.version.substr(1).split(".").map(Std.parseInt);
-		(version[0] > 0 || version[1] >= 9) ? 
+		(version[0] > 0 || version[1] >= 9) ?
 			{ isNodeWebkit() ? untyped __js__('global.clearImmediate') : untyped __js__('clearImmediate'); } :
 			null;
 	}
@@ -986,7 +996,7 @@ class Node {
 	public static function newSocket(?options):NodeNetSocket {
 		return untyped __js__("new js.Node.net.Socket(options)");
 	}
-	
+
 	public static function isNodeWebkit():Bool return untyped __js__('(typeof process == "object")');
 }
 
