@@ -612,7 +612,7 @@ typedef NodeHttpServer = { > NodeEventEmitter,
  */
 typedef NodeHttpReqOpt = {
 	@:optional var host:String;
-	@:optional var hostName:String;
+	@:optional var hostname:String;
 	@:optional var port:Int;
 	@:optional var localAddress:String;
 	@:optional var socketPath:String;
