@@ -29,8 +29,9 @@ import js.Node;
 class Http {
 	public var url : String;
 	public var async : Bool;
+	public var encoding : HttpEncoding = UTF8;
 
-	public var responseData(default, null) : Null<String>;
+	public var responseData(default, null) : Dynamic;
 	#if haxe3
 	public var responseHeaders = new Map<String, String>();
 	#else
@@ -120,6 +121,14 @@ class Http {
 		
 		options.method = post ? 'POST' : 'GET';
 		
+		switch (encoding) {
+			case BINARY:
+			options.encoding = null;
+
+			case UTF8:
+			options.encoding = 'utf8';
+		}
+
 		if( headers.get("Content-Type") == null && post && postData == null ) {
 			headers.set("Content-Type", "application/x-www-form-urlencoded");
 		}
@@ -140,11 +149,16 @@ class Http {
 			service = Node.http;
 
 		var request : NodeHttpClientReq = service.request(options, function(response :NodeHttpClientResp) {
-			responseData = '';
 			for (name in Reflect.fields(response.headers)) {
 				responseHeaders.set(name, Reflect.field(response.headers, name));
 			}
-			response.setEncoding('utf8');
+			switch (encoding) {
+				case BINARY:
+				responseData = null;
+
+				case UTF8:
+				responseData = '';
+			}
 			var s = try response.statusCode catch( e : Dynamic ) 0;
 				
 			if( response.statusCode != null ) {
@@ -164,25 +178,43 @@ class Http {
 						me.onError("Http Error #"+response.statusCode);
 				}
 			}
-				
-			response.on('data', function(chunk :String) {
-				responseData += chunk;
-			});
+
+			var chunks = [];
+			var finalise;
+
+			switch (encoding) {
+				case BINARY:
+				response.on('data', function(chunk : haxe.io.BytesData) {
+					chunks.push(chunk);
+				});
+				finalise = function(){
+					var data = haxe.io.BytesData.concat(chunks);
+					responseData = haxe.io.Bytes.ofData(data);
+				};
+
+				case UTF8:
+				response.on('data', function(chunk : String) {
+					responseData += chunk;
+				});
+				finalise = function(){};
+			}
 			
 			response.once('end', function() {
 				response.removeAllListeners("data");
 				response.removeAllListeners("end");
+
+				finalise();
 				
 				if (responseData != null) {
 					onData(responseData);
 				}
-				responseData = null;
 			});
 			response.once('close', function() {
+				finalise();
+				
 				if (responseData != null) {
 					onData(responseData);
 				}
-				responseData = null;
 			});
 			
 			response.once('error', function(error :Dynamic) {
@@ -197,7 +229,7 @@ class Http {
 		request.end();
 	}
 
-	public dynamic function onData( data : String ) {
+	public dynamic function onData( data : Dynamic ) {
 	}
 
 	public dynamic function onError( msg : String ) {

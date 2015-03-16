@@ -342,9 +342,9 @@ typedef NodeFS = {
 	function readFile(path:String,?options:NodeFsFileOptions,cb:NodeErr->Dynamic->Void):Void;
 	function readFileSync(path:String,?options:NodeFsFileOptions):Dynamic;
 
-	@:overload(function(fileName:String,data:NodeBuffer,cb:NodeErr->Void):Void {})
+	@:overload(function(fileName:String,data:NodeBuffer,?enc:String,cb:NodeErr->Void):Void {})
 	function writeFile(fileName:String,contents:String,?enc:String,cb:NodeErr->Void):Void;
-	@:overload(function(fileName:String,data:NodeBuffer):Void {})
+	@:overload(function(fileName:String,data:NodeBuffer,?enc:String):Void {})
 	function writeFileSync(fileName:String,contents:String,?enc:String):Void;
 
 	@:overload(function(fileName:String,data:NodeBuffer,cb:NodeErr->Void):Void {})
