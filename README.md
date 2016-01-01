@@ -2,6 +2,13 @@
 [nodejs]:http://nodejs.org/
 [haxelib]:http://lib.haxe.org
 
+## Deprecated!
+
+This library has been deprecated in favour of https://github.com/HaxeFoundation/hxnodejs
+
+It will no longer be maintained, and further efforts will be directed to the above library/externs.
+
+
 # Std [haxe lib][haxelib] for [node.js][nodejs]
 
 ### Description
